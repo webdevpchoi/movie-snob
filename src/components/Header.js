@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import SearchForm from "./SearchForm";
+
 const StyledHeader = styled.header`
   background: #403f4c;
   overflow: hidden;
@@ -8,11 +10,11 @@ const StyledHeader = styled.header`
 
 const H1 = styled.h1``;
 
-const Header = () => {
+const Header = ({ getMovies }) => {
   return (
     <StyledHeader>
-      <H1>Movie Snob!</H1>
-      <p>amongst other things...</p>
+      <H1>Movie Snob</H1>
+      <SearchForm getMovies={getMovies} />
     </StyledHeader>
   );
 };
