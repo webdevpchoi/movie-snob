@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route exact path='/:movieid' component={Movie} />
+      <Route exact path='/movies/:movieid' component={Movie} />
       <Route component={NotFound} />
     </Switch>
   );

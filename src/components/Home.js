@@ -3,7 +3,7 @@ import styled from "styled-components";
 import "../App.css";
 
 import Header from "./Header";
-import Movie from "./Movie";
+import MovieThumb from "./MovieThumb";
 
 const StyledHeader = styled.header`
   background: green;
@@ -44,7 +44,7 @@ class Home extends Component {
         <Header getMovies={this.getMovies} />
         <StyledHeader>Popular Movies</StyledHeader>
         {popularMovies.map(movie => (
-          <Movie details={movie} key={movie.id} />
+          <MovieThumb details={movie} key={movie.id} />
         ))}
       </div>
     );
