@@ -44,7 +44,12 @@ class Home extends Component {
         <Header getMovies={this.getMovies} />
         <StyledHeader>Popular Movies</StyledHeader>
         {popularMovies.map(movie => (
-          <MovieThumb details={movie} key={movie.id} />
+          <MovieThumb
+            img={movie.poster_path}
+            key={movie.id}
+            id={movie.id}
+            alt={movie.title}
+          />
         ))}
       </div>
     );
