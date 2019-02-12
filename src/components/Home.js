@@ -12,38 +12,43 @@ const StyledHeader = styled.header`
 class Home extends Component {
   state = {
     searchTerm: null,
-    popularMovies: [],
-    movieResults: null
+    movies: []
   };
 
-  getPopularMovies = async () => {
+  getMovies = async () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
-    const getPopularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    const response = await fetch(getPopularMovies);
+    const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const searchedMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    let movieURL = !this.state.searchTerm ? popularMovies : searchedMovies;
+    const response = await fetch(movieURL);
     const movieData = await response.json();
-    this.setState({ popularMovies: [...movieData.results] });
+    this.setState({ movies: [...movieData.results] });
   };
 
-  getMovies = async e => {
+  changeHandler = e => {
+    const searchTerm = e.currentTarget.value;
+    this.setState({ searchTerm });
+  };
+
+  submitHandler = e => {
     e.preventDefault();
-    const API_KEY = process.env.REACT_APP_API_KEY;
-    const getMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    const response = await fetch(getMovies);
-    const movieData = await response.json();
-    this.setState({ movieResults: [...movieData.results] });
+    this.getMovies();
   };
 
   componentDidMount() {
-    this.getPopularMovies();
+    this.getMovies();
   }
 
   render() {
-    const { popularMovies } = this.state;
+    const { movies } = this.state;
     return (
       <div className='App'>
-        <Header getMovies={this.getMovies} />
+        <Header
+          submitHandler={this.submitHandler}
+          changeHandler={this.changeHandler}
+        />
         <StyledHeader>Popular Movies</StyledHeader>
-        {popularMovies.map(movie => (
+        {movies.map(movie => (
           <MovieThumb
             img={movie.poster_path}
             key={movie.id}

@@ -8,7 +8,6 @@ export default class Movie extends Component {
   };
 
   componentDidMount() {
-    console.log("mounted");
     const movieid = this.props.location.movieid;
     const movieData = getMovieDetails(movieid);
     movieData.then(results => {

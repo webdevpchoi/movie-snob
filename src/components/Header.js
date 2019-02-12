@@ -10,11 +10,11 @@ const StyledHeader = styled.header`
 
 const H1 = styled.h1``;
 
-const Header = ({ getMovies }) => {
+const Header = ({ submitHandler, changeHandler }) => {
   return (
     <StyledHeader>
       <H1>Movie Snob</H1>
-      <SearchForm getMovies={getMovies} />
+      <SearchForm submitHandler={submitHandler} changeHandler={changeHandler} />
     </StyledHeader>
   );
 };
