@@ -9,6 +9,11 @@ const StyledHeader = styled.header`
   background: green;
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+`;
+
 class Home extends Component {
   state = {
     searchTerm: null,
@@ -68,7 +73,7 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <StyledHeader>Popular Movies</StyledHeader>
-        {displayMovies}
+        <Grid>{displayMovies}</Grid>
       </div>
     );
   }

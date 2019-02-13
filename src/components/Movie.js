@@ -10,7 +10,6 @@ export default class Movie extends Component {
     const movieid = this.props.location.movieid;
     const movieData = this.getMovieDetails(movieid);
     movieData.then(results => {
-      console.log(results);
       this.setState({
         title: results.original_title,
         overview: results.overview
