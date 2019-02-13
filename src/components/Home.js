@@ -17,8 +17,10 @@ class Home extends Component {
 
   getMovies = async () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
+    const search = this.state.searchTerm;
     const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    const searchedMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const searchedMovies = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${search}`;
+    // if there is search term, use the popular movies api url, otherwise, use the search movies api url
     let movieURL = !this.state.searchTerm ? popularMovies : searchedMovies;
     const response = await fetch(movieURL);
     const movieData = await response.json();
