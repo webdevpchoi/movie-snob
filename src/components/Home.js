@@ -22,9 +22,15 @@ class Home extends Component {
     const searchedMovies = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${search}`;
     // if there is search term, use the popular movies api url, otherwise, use the search movies api url
     let movieURL = !this.state.searchTerm ? popularMovies : searchedMovies;
-    const response = await fetch(movieURL);
-    const movieData = await response.json();
-    this.setState({ movies: [...movieData.results] });
+    try {
+      const response = await fetch(movieURL);
+      const movieData = await response.json();
+      this.setState({ movies: [...movieData.results] });
+    } catch (e) {
+      // if something goes wrong during the fetch operation, set the movies data array to be empty and alert developer of error
+      console.log(e);
+      this.setState({ movies: [] });
+    }
   };
 
   changeHandler = e => {
@@ -43,6 +49,18 @@ class Home extends Component {
 
   render() {
     const { movies } = this.state;
+    //if the movie array is empty, it shouldn't display anything, but provide user with feedback
+    const displayMovies =
+      this.state.movies.length === 0
+        ? "Movie not found...try another search term!"
+        : movies.map(movie => (
+            <MovieThumb
+              img={movie.poster_path}
+              key={movie.id}
+              id={movie.id}
+              alt={movie.title}
+            />
+          ));
     return (
       <div className='App'>
         <Header
@@ -50,14 +68,7 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <StyledHeader>Popular Movies</StyledHeader>
-        {movies.map(movie => (
-          <MovieThumb
-            img={movie.poster_path}
-            key={movie.id}
-            id={movie.id}
-            alt={movie.title}
-          />
-        ))}
+        {displayMovies}
       </div>
     );
   }
