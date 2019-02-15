@@ -4,10 +4,17 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+import { ThemeProvider } from "styled-components";
+
+const theme = {
+  mainColor: "black"
+};
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );
