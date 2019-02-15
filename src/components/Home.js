@@ -4,6 +4,7 @@ import "../App.css";
 
 import Header from "./Header";
 import MovieThumb from "./MovieThumb";
+import Loader from "./Loader";
 
 const StyledHeader = styled.header`
   background: green;
@@ -17,7 +18,8 @@ const Grid = styled.div`
 class Home extends Component {
   state = {
     searchTerm: null,
-    movies: []
+    movies: [],
+    loading: false
   };
 
   getMovies = async () => {
@@ -30,7 +32,7 @@ class Home extends Component {
     try {
       const response = await fetch(movieURL);
       const movieData = await response.json();
-      this.setState({ movies: [...movieData.results] });
+      this.setState({ movies: [...movieData.results], loading: false });
     } catch (e) {
       // if something goes wrong during the fetch operation, set the movies data array to be empty and alert developer of error
       console.log(e);
@@ -55,17 +57,14 @@ class Home extends Component {
   render() {
     const { movies } = this.state;
     //if the movie array is empty, it shouldn't display anything, but provide user with feedback
-    const displayMovies =
-      this.state.movies.length === 0
-        ? "Movie not found...try another search term!"
-        : movies.map(movie => (
-            <MovieThumb
-              img={movie.poster_path}
-              key={movie.id}
-              id={movie.id}
-              alt={movie.title}
-            />
-          ));
+    const displayMovies = movies.map(movie => (
+      <MovieThumb
+        img={movie.poster_path}
+        key={movie.id}
+        id={movie.id}
+        alt={movie.title}
+      />
+    ));
     return (
       <div className='App'>
         <Header
@@ -73,6 +72,7 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <StyledHeader>Popular Movies</StyledHeader>
+        {this.state.loading ? <Loader /> : null}
         <Grid>{displayMovies}</Grid>
       </div>
     );
