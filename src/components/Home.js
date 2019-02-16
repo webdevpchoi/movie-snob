@@ -29,6 +29,8 @@ class Home extends Component {
     const searchedMovies = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${search}`;
     // if there is search term, use the popular movies api url, otherwise, use the search movies api url
     let movieURL = !this.state.searchTerm ? popularMovies : searchedMovies;
+    //let users know something is loading in case they're on a slow network
+    this.setState({ loading: true, movies: [] });
     try {
       const response = await fetch(movieURL);
       const movieData = await response.json();
@@ -36,6 +38,7 @@ class Home extends Component {
     } catch (e) {
       // if something goes wrong during the fetch operation, set the movies data array to be empty and alert developer of error
       console.log(e);
+      //load the movies, and turn off the loading modal
       this.setState({ movies: [] });
     }
   };
