@@ -34,7 +34,11 @@ class Home extends Component {
     try {
       const response = await fetch(movieURL);
       const movieData = await response.json();
+      console.log(movieData.results);
       this.setState({ movies: [...movieData.results], loading: false });
+      //stringify the movies you just put into state and store it into HTML5 Local Storage
+      const moviesJSON = JSON.stringify(this.state.movies);
+      localStorage.setItem("movies", moviesJSON);
     } catch (e) {
       // if something goes wrong during the fetch operation, set the movies data array to be empty and alert developer of error
       console.log(e);
@@ -54,6 +58,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    const cachedMovies = localStorage.getItem("movies");
+    console.log(cachedMovies);
     this.getMovies();
   }
 
