@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider } from "styled-components";
 
 const theme = {
-  mainColor: "black"
+  headerFont: "Playfair Display"
 };
 
 ReactDOM.render(

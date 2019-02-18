@@ -8,12 +8,14 @@ const StyledHeader = styled.header`
   overflow: hidden;
 `;
 
-const H1 = styled.h1``;
+const HeaderLogo = styled.h1`
+  font-family: ${props => props.theme.headerFont};
+`;
 
 const Header = ({ submitHandler, changeHandler }) => {
   return (
     <StyledHeader>
-      <H1>Movie Snob</H1>
+      <HeaderLogo>Movie Snob</HeaderLogo>
       <SearchForm submitHandler={submitHandler} changeHandler={changeHandler} />
     </StyledHeader>
   );

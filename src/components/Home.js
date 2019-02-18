@@ -22,6 +22,20 @@ class Home extends Component {
     loading: false
   };
 
+  componentDidMount() {
+    //if there are movies in local storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
+    const cachedMovies = localStorage.getItem("movies");
+    //if there are cached movies, change the data
+    if (cachedMovies) {
+      const cachedData = JSON.parse(cachedMovies);
+      this.setState({ movies: [...cachedData] });
+    } else {
+      //continue with rest of code if there's nothing cached
+      console.log(cachedMovies);
+      this.getMovies();
+    }
+  }
+
   getMovies = async () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
     const search = this.state.searchTerm;
@@ -56,12 +70,6 @@ class Home extends Component {
     e.preventDefault();
     this.getMovies();
   };
-
-  componentDidMount() {
-    const cachedMovies = localStorage.getItem("movies");
-    console.log(cachedMovies);
-    this.getMovies();
-  }
 
   render() {
     const { movies } = this.state;
