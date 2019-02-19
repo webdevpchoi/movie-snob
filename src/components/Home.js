@@ -23,8 +23,8 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    //if there are movies in local storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
-    const cachedMovies = localStorage.getItem("movies");
+    //if there are movies in session storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
+    const cachedMovies = sessionStorage.getItem("movies");
     //if there are cached movies, change the data
     if (cachedMovies) {
       const cachedData = JSON.parse(cachedMovies);
@@ -50,9 +50,9 @@ class Home extends Component {
       const movieData = await response.json();
       console.log(movieData.results);
       this.setState({ movies: [...movieData.results], loading: false });
-      //stringify the movies you just put into state and store it into HTML5 Local Storage
+      //stringify the movies you just put into state and store it into HTML5 Session Storage
       const moviesJSON = JSON.stringify(this.state.movies);
-      localStorage.setItem("movies", moviesJSON);
+      sessionStorage.setItem("movies", moviesJSON);
     } catch (e) {
       // if something goes wrong during the fetch operation, set the movies data array to be empty and alert developer of error
       console.log(e);

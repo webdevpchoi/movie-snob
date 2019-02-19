@@ -6,8 +6,16 @@ import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider } from "styled-components";
 
+/* RGB */
+// $color1: rgba(34, 46, 80, 1);
+// $color2: rgba(0, 121, 145, 1);
+// $color3: rgba(252, 213, 129, 1);
+// $color4: rgba(67, 154, 134, 1);
+// $color5: rgba(188, 216, 193, 1);
+
 const theme = {
-  headerFont: "Playfair Display"
+  headerFont: "Playfair Display",
+  accentColor: "rgba(252, 213, 129, 1)"
 };
 
 ReactDOM.render(
