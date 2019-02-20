@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import "../App.css";
-
+//components
 import Header from "./Header";
 import MovieThumb from "./MovieThumb";
+import SearchForm from "./SearchForm";
 import Loader from "./Loader";
 
 const StyledHeader = styled.header`
@@ -13,6 +14,10 @@ const StyledHeader = styled.header`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+`;
+
+const StyledForm = styled(SearchForm)`
+  background: rgba(0, 121, 145, 1);
 `;
 
 class Home extends Component {
@@ -84,7 +89,8 @@ class Home extends Component {
     ));
     return (
       <div className='App'>
-        <Header
+        <Header />
+        <StyledForm
           submitHandler={this.submitHandler}
           changeHandler={this.changeHandler}
         />

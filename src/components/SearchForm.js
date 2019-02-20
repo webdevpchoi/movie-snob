@@ -9,9 +9,9 @@ const Button = styled.button`
   padding: 5px 10px;
   margin: 5px 10px;
 `;
-const SearchForm = ({ submitHandler, changeHandler }) => {
+const SearchForm = ({ submitHandler, changeHandler, className }) => {
   return (
-    <form action='' onSubmit={submitHandler}>
+    <form action='' onSubmit={submitHandler} className={className}>
       <input type='text' className='movie-input' onChange={changeHandler} />
       <Button type='submit'>Search</Button>
     </form>
