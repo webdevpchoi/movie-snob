@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import "../App.css";
 //components
 import Header from "./Header";
@@ -14,10 +14,6 @@ const StyledHeader = styled.header`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-`;
-
-const StyledForm = styled(SearchForm)`
-  background: rgba(0, 121, 145, 1);
 `;
 
 class Home extends Component {
@@ -40,6 +36,15 @@ class Home extends Component {
       this.getMovies();
     }
   }
+
+  //on home page load, get several different genres of movies and tvs
+  getInitalMovies = () => {
+    //set loading to true
+    //create an array of urls to fetch data from
+    //loop over those urls using .map()  and the Fetch api to return an array of Promises
+    //once all of the promises in the array are resolved, use the .then to load the movies into state
+    //set loading to false once all is complete
+  };
 
   getMovies = async () => {
     const API_KEY = process.env.REACT_APP_API_KEY;
@@ -89,8 +94,7 @@ class Home extends Component {
     ));
     return (
       <div className='App'>
-        <Header />
-        <StyledForm
+        <Header
           submitHandler={this.submitHandler}
           changeHandler={this.changeHandler}
         />

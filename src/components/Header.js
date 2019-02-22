@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { ReactComponent as Logo } from "../icons/film.svg";
+import SearchForm from "./SearchForm";
 
 const NavBar = styled.div`
   background: ${props => props.theme.mainColor};
@@ -49,20 +50,10 @@ const NavBar = styled.div`
   .spacer {
     flex: 1;
   }
+`;
 
-  .inner-nav {
-    display: flex;
-    background: transparent;
-    padding: 0 15px;
-    flex: 0 0 400px;
-    align-items: center;
-    justify-content: space-around;
-    h4 {
-      margin: 0;
-      font-weight: 300;
-      font-style: normal;
-    }
-  }
+const StyledForm = styled(SearchForm)`
+  background: white;
 `;
 
 const Header = ({ submitHandler, changeHandler }) => {
@@ -74,11 +65,10 @@ const Header = ({ submitHandler, changeHandler }) => {
           <Logo />
         </div>
         <div className='spacer' />
-        <div className='inner-nav'>
-          <h4>Popular</h4>
-          <h4>Now Playing</h4>
-          <h4>Upcoming</h4>
-        </div>
+        <StyledForm
+          submitHandler={submitHandler}
+          changeHandler={changeHandler}
+        />
       </NavBar>
     </React.Fragment>
   );
