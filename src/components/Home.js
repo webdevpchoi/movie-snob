@@ -40,6 +40,8 @@ class Home extends Component {
   //on home page load, get several different genres of movies and tvs
   getInitalMovies = () => {
     //set loading to true
+    this.setState({ loading: true });
+    //store movie API URLs into meaningful variables
     //create an array of urls to fetch data from
     //loop over those urls using .map()  and the Fetch api to return an array of Promises
     //once all of the promises in the array are resolved, use the .then to load the movies into state
