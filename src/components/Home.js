@@ -4,7 +4,6 @@ import "../App.css";
 //components
 import Header from "./Header";
 import MovieThumb from "./MovieThumb";
-import SearchForm from "./SearchForm";
 import Loader from "./Loader";
 
 const StyledHeader = styled.header`
@@ -39,9 +38,15 @@ class Home extends Component {
 
   //on home page load, get several different genres of movies and tvs
   getInitalMovies = () => {
+    const API_KEY = process.env.REACT_APP_API_KEY;
     //set loading to true
     this.setState({ loading: true });
     //store movie API URLs into meaningful variables
+    const trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
+    const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
+    const latest = `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`;
+    const nowPlaying = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
+    const upcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
     //create an array of urls to fetch data from
     //loop over those urls using .map()  and the Fetch api to return an array of Promises
     //once all of the promises in the array are resolved, use the .then to load the movies into state
