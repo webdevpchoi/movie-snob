@@ -42,12 +42,17 @@ class Home extends Component {
     //set loading to true
     this.setState({ loading: true });
     //store movie API URLs into meaningful variables
-    const trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
-    const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
-    const nowPlaying = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
-    const upcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
+    // const trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
+    // const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
+    // const nowPlaying = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
+    // const upcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
+    const allMovieURLs = {
+      trending: `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`,
+      topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
+      nowPlaying: `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
+      upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
+    };
     //create an array of urls to fetch data from
-    const allMovieURLs = [trending, topRated, nowPlaying, upcoming];
     const promiseURLs = allMovieURLs.map(url =>
       fetch(url).then(res => res.json())
     );
