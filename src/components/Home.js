@@ -44,10 +44,15 @@ class Home extends Component {
     //store movie API URLs into meaningful variables
     const trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
     const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
-    const latest = `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`;
     const nowPlaying = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
     const upcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
     //create an array of urls to fetch data from
+    const allMovieURLs = [trending, topRated, nowPlaying, upcoming];
+    const promiseURLs = allMovieURLs.map(url =>
+      fetch(url).then(res => res.json())
+    );
+    Promise.all(promiseURLs).then(dataArr => console.log(dataArr));
+
     //loop over those urls using .map()  and the Fetch api to return an array of Promises
     //once all of the promises in the array are resolved, use the .then to load the movies into state
     //set loading to false once all is complete
