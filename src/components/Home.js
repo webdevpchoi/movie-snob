@@ -52,6 +52,11 @@ class Home extends Component {
       nowPlaying: `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
     };
+
+    const movieData = {};
+
+    for (const movieType in allMovieURLs) {
+    }
     //create an array of urls to fetch data from
     const promiseURLs = allMovieURLs.map(url =>
       fetch(url).then(res => res.json())
