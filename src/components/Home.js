@@ -49,18 +49,15 @@ class Home extends Component {
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
     };
 
-    const promiseEntries = Promise.all(
-      Object.entries(allMovieURLs).map(entry => {
-        let [key, value] = entry;
-        return fetch(value).then(res =>
-          res.json().then(data => {
-            return [key, data];
-          })
-        );
-      })
-    );
-
-    console.log(promiseEntries);
+    const entries = Object.entries(allMovieURLs);
+    const mapOfEntries = entries.map(entry => {
+      const [key, value] = entry;
+      return fetch(value)
+        .then(res => res.json())
+        .then(data => ["anything", "here", "could", "be", "farts"]);
+    });
+    console.log(mapOfEntries);
+    console.log("end of function");
 
     //use Promise.all to ensure that all of the data is received at the same time so that the initial page load isn't missing any data!
     // Promise.all(promiseArr).then(data =>
