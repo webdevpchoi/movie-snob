@@ -41,11 +41,7 @@ class Home extends Component {
     const API_KEY = process.env.REACT_APP_API_KEY;
     //set loading to true
     this.setState({ loading: true });
-    //store movie API URLs into meaningful variables
-    // const trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
-    // const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
-    // const nowPlaying = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
-    // const upcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
+    //create an object with all movie URLs
     const allMovieURLs = {
       trending: `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`,
       topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
@@ -53,19 +49,27 @@ class Home extends Component {
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
     };
 
-    const movieData = {};
-
-    for (const movieType in allMovieURLs) {
-    }
-    //create an array of urls to fetch data from
-    const promiseURLs = allMovieURLs.map(url =>
-      fetch(url).then(res => res.json())
+    const promiseEntries = Promise.all(
+      Object.entries(allMovieURLs).map(entry => {
+        let [key, value] = entry;
+        return fetch(value).then(res =>
+          res.json().then(data => {
+            return [key, data];
+          })
+        );
+      })
     );
-    Promise.all(promiseURLs).then(dataArr => console.log(dataArr));
 
-    //loop over those urls using .map()  and the Fetch api to return an array of Promises
-    //once all of the promises in the array are resolved, use the .then to load the movies into state
-    //set loading to false once all is complete
+    console.log(promiseEntries);
+
+    //use Promise.all to ensure that all of the data is received at the same time so that the initial page load isn't missing any data!
+    // Promise.all(promiseArr).then(data =>
+    //   data.forEach(dataObj => {
+    //     console.log(dataObj.results);
+    //   })
+    // );
+
+    //
   };
 
   getMovies = async () => {
