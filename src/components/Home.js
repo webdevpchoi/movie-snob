@@ -49,24 +49,22 @@ class Home extends Component {
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
     };
 
-    const entries = Object.entries(allMovieURLs);
-    const mapOfEntries = entries.map(entry => {
-      const [key, value] = entry;
-      return fetch(value)
-        .then(res => res.json())
-        .then(data => ["anything", "here", "could", "be", "farts"]);
+    const moviePromises = Promise.all(
+      Object.entries(allMovieURLs).map(entry => {
+        const [key, url] = entry;
+        return fetch(url).then(res => res.json().then(data => [key, data]));
+      })
+    );
+
+    const movies = moviePromises.then(movieArr => {
+      const movieObj = {};
+      for (const [movie, movieData] of movieArr) {
+        movieObj[movie] = movieData;
+      }
+      return movieObj;
     });
-    console.log(mapOfEntries);
-    console.log("end of function");
 
-    //use Promise.all to ensure that all of the data is received at the same time so that the initial page load isn't missing any data!
-    // Promise.all(promiseArr).then(data =>
-    //   data.forEach(dataObj => {
-    //     console.log(dataObj.results);
-    //   })
-    // );
-
-    //
+    movies.then(results => console.log(results));
   };
 
   getMovies = async () => {
