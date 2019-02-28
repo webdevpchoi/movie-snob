@@ -18,7 +18,12 @@ const Grid = styled.div`
 class Home extends Component {
   state = {
     searchTerm: null,
-    movies: [],
+    movies: {
+      trending: {},
+      topRated: {},
+      nowPlaying: {},
+      upcoming: {}
+    },
     loading: false
   };
 
@@ -49,22 +54,27 @@ class Home extends Component {
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
     };
 
+    //break down the movieURL object into entries, fetch the URL, and reassign entries with actual data
+    //encapsulate within a Promise.all to ensure they all resolve at the same time.
     const moviePromises = Promise.all(
       Object.entries(allMovieURLs).map(entry => {
         const [key, url] = entry;
         return fetch(url).then(res => res.json().then(data => [key, data]));
       })
     );
+    //with the returned promise from Promise.all, reconstruct the array of entries back into an object with relevant key pair values
 
     const movies = moviePromises.then(movieArr => {
-      const movieObj = {};
+      const dataObj = {};
       for (const [movie, movieData] of movieArr) {
-        movieObj[movie] = movieData;
+        dataObj[movie] = movieData;
       }
-      return movieObj;
+      return dataObj;
     });
-
-    movies.then(results => console.log(results));
+    //with the returned object, push it into current state, then turn off loading
+    movies.then(movieObj =>
+      this.setState({ movies: movieObj, loading: false })
+    );
   };
 
   getMovies = async () => {
@@ -79,7 +89,7 @@ class Home extends Component {
     try {
       const response = await fetch(movieURL);
       const movieData = await response.json();
-      console.log(movieData.results);
+
       this.setState({ movies: [...movieData.results], loading: false });
       //stringify the movies you just put into state and store it into HTML5 Session Storage
       const moviesJSON = JSON.stringify(this.state.movies);
@@ -105,14 +115,14 @@ class Home extends Component {
   render() {
     const { movies } = this.state;
     //if the movie array is empty, it shouldn't display anything, but provide user with feedback
-    const displayMovies = movies.map(movie => (
-      <MovieThumb
-        img={movie.poster_path}
-        key={movie.id}
-        id={movie.id}
-        alt={movie.title}
-      />
-    ));
+    // const displayMovies = movies.map(movie => (
+    //   <MovieThumb
+    //     img={movie.poster_path}
+    //     key={movie.id}
+    //     id={movie.id}
+    //     alt={movie.title}
+    //   />
+    // ));
     return (
       <div className='App'>
         <Header
@@ -121,7 +131,7 @@ class Home extends Component {
         />
         <StyledHeader>Popular Movies</StyledHeader>
         {this.state.loading ? <Loader /> : null}
-        <Grid>{displayMovies}</Grid>
+        {/* <Grid>{displayMovies}</Grid> */}
       </div>
     );
   }
