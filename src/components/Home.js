@@ -3,17 +3,9 @@ import styled from "styled-components/macro";
 import "../App.css";
 //components
 import Header from "./Header";
+import HeroImage from "./HeroImage";
 import MovieThumb from "./MovieThumb";
 import Loader from "./Loader";
-
-const StyledHeader = styled.header`
-  background: green;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-`;
 
 class Home extends Component {
   state = {
@@ -113,23 +105,13 @@ class Home extends Component {
   };
 
   render() {
-    const { movies } = this.state;
-    //if the movie array is empty, it shouldn't display anything, but provide user with feedback
-    // const displayMovies = movies.map(movie => (
-    //   <MovieThumb
-    //     img={movie.poster_path}
-    //     key={movie.id}
-    //     id={movie.id}
-    //     alt={movie.title}
-    //   />
-    // ));
     return (
       <div className='App'>
         <Header
           submitHandler={this.submitHandler}
           changeHandler={this.changeHandler}
         />
-        <StyledHeader>Popular Movies</StyledHeader>
+        <HeroImage />
         {this.state.loading ? <Loader /> : null}
         {/* <Grid>{displayMovies}</Grid> */}
       </div>

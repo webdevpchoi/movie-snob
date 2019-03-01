@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from "../icons/film.svg";
 import SearchForm from "./SearchForm";
 
 const NavBar = styled.div`
-  background: ${props => props.theme.mainColor};
+  background: transparent;
   font-family: ${props => props.theme.headerFont};
   font-weight: 900;
   font-style: italic;
@@ -58,19 +58,14 @@ const StyledForm = styled(SearchForm)`
 
 const Header = ({ submitHandler, changeHandler }) => {
   return (
-    <React.Fragment>
-      <NavBar>
-        <div className='logo-container'>
-          <h1>MovieSnob</h1>
-          <Logo />
-        </div>
-        <div className='spacer' />
-        <StyledForm
-          submitHandler={submitHandler}
-          changeHandler={changeHandler}
-        />
-      </NavBar>
-    </React.Fragment>
+    <NavBar>
+      <div className='logo-container'>
+        <h1>MovieSnob</h1>
+        <Logo />
+      </div>
+      <div className='spacer' />
+      <StyledForm submitHandler={submitHandler} changeHandler={changeHandler} />
+    </NavBar>
   );
 };
 
