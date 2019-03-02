@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import styled from "styled-components/macro";
 import "../App.css";
 //components
 import Header from "./Header";
 import HeroImage from "./HeroImage";
+import MovieDisplay from "./MovieDisplay";
 import MovieThumb from "./MovieThumb";
 import Loader from "./Loader";
 
@@ -112,6 +112,7 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <HeroImage />
+        <MovieDisplay />
         {this.state.loading ? <Loader /> : null}
         {/* <Grid>{displayMovies}</Grid> */}
       </div>

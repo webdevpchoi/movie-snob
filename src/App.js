@@ -15,6 +15,9 @@ const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit;
  }
+ html, body {
+  overflow-x: hidden;
+ }
 `;
 
 class App extends React.Component {
