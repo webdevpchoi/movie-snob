@@ -9,6 +9,10 @@ const StyledMovieRow = styled.div`
 
 export default class MovieRow extends Component {
   render() {
-    return <StyledMovieRow />;
+    return (
+      <StyledMovieRow>
+        <div className='row-title'>Trending</div>
+      </StyledMovieRow>
+    );
   }
 }
