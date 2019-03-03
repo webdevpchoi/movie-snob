@@ -10,9 +10,13 @@ const StyledMovieDisplay = styled.div`
 
 export default class MovieDisplay extends Component {
   render() {
+    const { movies } = this.props;
     return (
       <StyledMovieDisplay>
-        <MovieRow />
+        <MovieRow movies={movies} movieType='trending' />
+        <MovieRow movies={movies} movieType='top rated' />
+        <MovieRow movies={movies} movieType='now playing' />
+        <MovieRow movies={movies} movieType='upcoming' />
       </StyledMovieDisplay>
     );
   }
