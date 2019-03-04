@@ -4,7 +4,7 @@ import placeholder from "../images/placeholder.jpg";
 
 const StyledHero = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 50vh;
   position: relative;
   img {
     object-fit: cover;

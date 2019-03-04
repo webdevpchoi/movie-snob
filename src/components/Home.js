@@ -38,7 +38,7 @@ class Home extends Component {
     this.setState({ loading: true });
     //create an object with all movie URLs
     const allMovieURLs = {
-      trending: `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`,
+      trending: `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,
       topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
       nowPlaying: `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`

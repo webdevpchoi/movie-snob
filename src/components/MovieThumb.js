@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 const StyledThumbnail = styled.div`
+  width: 200px;
+  margin: 15px;
   .movie img {
     height: 100px;
     width: 100px;
