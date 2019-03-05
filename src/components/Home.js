@@ -19,16 +19,17 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    //if there are movies in session storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
-    const cachedMovies = sessionStorage.getItem("movies");
-    //if there are cached movies, change the data
-    if (cachedMovies) {
-      const cachedData = JSON.parse(cachedMovies);
-      this.setState({ movies: [...cachedData] });
-    } else {
-      //continue with rest of code if there's nothing cached
-      this.getInitalMovies();
-    }
+    this.getInitalMovies();
+    // //if there are movies in session storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
+    // const cachedMovies = sessionStorage.getItem("movies");
+    // //if there are cached movies, change the data
+    // if (cachedMovies) {
+    //   const cachedData = JSON.parse(cachedMovies);
+    //   this.setState({ movies: [...cachedData] });
+    // } else {
+    //   //continue with rest of code if there's nothing cached
+    //   this.getInitalMovies();
+    // }
   }
 
   //on home page load, get several different genres of movies and tvs
@@ -61,9 +62,9 @@ class Home extends Component {
       return dataObj;
     });
     //with the returned object, push it into current state, then turn off loading
-    movies.then(movieObj =>
-      this.setState({ movies: movieObj, loading: false })
-    );
+    movies.then(movieObj => {
+      this.setState({ movies: movieObj, loading: false });
+    });
   };
 
   // getMovies = async () => {
@@ -103,6 +104,13 @@ class Home extends Component {
 
   render() {
     const { movies } = this.state;
+    for (const prop in movies) {
+      if (movies.hasOwnProperty(prop)) {
+        console.log(prop);
+      } else {
+        console.log("no prop");
+      }
+    }
     return (
       <div className='App'>
         <Header
@@ -110,8 +118,11 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <HeroImage />
-        <MovieDisplay movies={movies} />
-        {this.state.loading ? <Loader /> : null}
+        {this.state.loading && !this.state.movies.trending ? (
+          <Loader />
+        ) : (
+          <MovieDisplay movies={movies} />
+        )}
       </div>
     );
   }

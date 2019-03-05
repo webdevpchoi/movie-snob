@@ -59,7 +59,7 @@ export default class MovieRow extends Component {
     return (
       <StyledMovieRow>
         <div className='row-title'>{movieType}</div>
-        <Slider {...settings}>{console.log(movies)}</Slider>
+        <Slider {...settings} />
       </StyledMovieRow>
     );
   }
