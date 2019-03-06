@@ -4,7 +4,6 @@ import MovieRow from "./MovieRow";
 
 const StyledMovieDisplay = styled.div`
   background: black;
-  height: 70vh;
   padding: 15px;
   display: flex;
   align-items: center;

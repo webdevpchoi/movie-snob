@@ -8,7 +8,6 @@ import MovieThumb from "./MovieThumb";
 
 const StyledMovieRow = styled.div`
   background: white;
-  height: 200px;
   width: 85%;
   margin: 15px 0;
   display: flex;
@@ -27,7 +26,7 @@ export default class MovieRow extends Component {
       infinite: false,
       speed: 500,
       slidesToShow: 6,
-      slidesToScroll: 4,
+      slidesToScroll: 6,
       initialSlide: 0,
       responsive: [
         {
@@ -58,9 +57,12 @@ export default class MovieRow extends Component {
     const { movieType, movies } = this.props;
     return (
       <StyledMovieRow>
-        {movies.map(movie => console.log("hi"))};
         <div className='row-title'>{movieType}</div>
-        <Slider {...settings} />
+        <Slider {...settings}>
+          {movies.map(movie => (
+            <MovieThumb key={movie.id} />
+          ))}
+        </Slider>
       </StyledMovieRow>
     );
   }
