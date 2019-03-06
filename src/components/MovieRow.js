@@ -58,6 +58,7 @@ export default class MovieRow extends Component {
     const { movieType, movies } = this.props;
     return (
       <StyledMovieRow>
+        {movies.map(movie => console.log("hi"))};
         <div className='row-title'>{movieType}</div>
         <Slider {...settings} />
       </StyledMovieRow>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
+import { isObjEmpty } from "../helper";
 //components
 import Header from "./Header";
 import HeroImage from "./HeroImage";
@@ -15,7 +16,7 @@ class Home extends Component {
       nowPlaying: {},
       upcoming: {}
     },
-    loading: false
+    loading: true
   };
 
   componentDidMount() {
@@ -104,13 +105,6 @@ class Home extends Component {
 
   render() {
     const { movies } = this.state;
-    for (const prop in movies) {
-      if (movies.hasOwnProperty(prop)) {
-        console.log(prop);
-      } else {
-        console.log("no prop");
-      }
-    }
     return (
       <div className='App'>
         <Header
@@ -118,11 +112,7 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <HeroImage />
-        {this.state.loading && !this.state.movies.trending ? (
-          <Loader />
-        ) : (
-          <MovieDisplay movies={movies} />
-        )}
+        {this.state.loading ? <Loader /> : <MovieDisplay movies={movies} />}
       </div>
     );
   }
