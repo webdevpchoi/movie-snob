@@ -28,11 +28,9 @@ export default class MovieRow extends Component {
   };
 
   showPreview = movie => {
-    console.log(movie);
     this.setState({
-      title: "test",
-      desc:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi impedit quidem quaerat hic est laboriosam deserunt dolores nostrum! Itaque doloribus adipisci quae natus deserunt qui culpa totam sunt esse eaque?"
+      title: movie.title,
+      desc: movie.overview
     });
   };
   render() {
