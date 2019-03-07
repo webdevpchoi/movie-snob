@@ -15,10 +15,13 @@ export default class MovieDisplay extends Component {
     const { movies } = this.props;
     return (
       <StyledMovieDisplay>
-        <MovieRow movies={movies.trending.results} movieType='trending' />
-        <MovieRow movies={movies.topRated.results} movieType='top rated' />
-        <MovieRow movies={movies.nowPlaying.results} movieType='now playing' />
-        <MovieRow movies={movies.upcoming.results} movieType='upcoming' />
+        <MovieRow movieData={movies.trending.results} movieType='trending' />
+        <MovieRow movieData={movies.topRated.results} movieType='top rated' />
+        <MovieRow
+          movieData={movies.nowPlaying.results}
+          movieType='now playing'
+        />
+        <MovieRow movieData={movies.upcoming.results} movieType='upcoming' />
       </StyledMovieDisplay>
     );
   }

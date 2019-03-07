@@ -9,17 +9,22 @@ const StyledThumbnail = styled.div`
     cursor: pointer;
   }
 `;
-const MovieThumb = ({ id, img, alt, showPreview }) => {
+const MovieThumb = ({ showPreview, movie }) => {
   return (
     <StyledThumbnail>
-      <div className='movie' onClick={showPreview}>
+      <div
+        className='movie'
+        onClick={() => {
+          showPreview(movie);
+        }}
+      >
         <img
           src={
-            img
-              ? `https://image.tmdb.org/t/p/w300${img}`
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
               : "https://via.placeholder.com/300"
           }
-          alt={alt}
+          alt={movie.original_title}
         />
       </div>
     </StyledThumbnail>

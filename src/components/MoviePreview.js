@@ -8,9 +8,11 @@ const StyledMoviePreview = styled.div`
 
 export default class MoviePreview extends Component {
   render() {
+    const { title, desc } = this.props.details;
     return (
       <StyledMoviePreview>
-        <h1>movie preview</h1>
+        <h1>{title}</h1>
+        <p>{desc}</p>
       </StyledMoviePreview>
     );
   }

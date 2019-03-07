@@ -21,8 +21,19 @@ const StyledMovieRow = styled.div`
 `;
 
 export default class MovieRow extends Component {
-  showPreview = () => {
-    console.log("hey, show me the preview!");
+  state = {
+    title: "",
+    desc: "",
+    img: ""
+  };
+
+  showPreview = movie => {
+    console.log(movie);
+    this.setState({
+      title: "test",
+      desc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi impedit quidem quaerat hic est laboriosam deserunt dolores nostrum! Itaque doloribus adipisci quae natus deserunt qui culpa totam sunt esse eaque?"
+    });
   };
   render() {
     const settings = {
@@ -57,21 +68,21 @@ export default class MovieRow extends Component {
         }
       ]
     };
-    const { movieType, movies } = this.props;
+    const { movieType, movieData } = this.props;
     return (
       <StyledMovieRow>
         <div className='row-title'>{movieType}</div>
         <Slider {...settings}>
-          {movies.map(movie => (
+          {movieData.map(movie => (
             <MovieThumb
               key={movie.id}
               id={movie.id}
-              img={movie.poster_path}
+              movie={movie}
               showPreview={this.showPreview}
             />
           ))}
         </Slider>
-        <MoviePreview />
+        <MoviePreview details={this.state} />
       </StyledMovieRow>
     );
   }
