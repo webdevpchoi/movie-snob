@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import MovieThumb from "./MovieThumb";
+import MoviePreview from "./MoviePreview";
 
 const StyledMovieRow = styled.div`
   background: white;
@@ -20,6 +21,9 @@ const StyledMovieRow = styled.div`
 `;
 
 export default class MovieRow extends Component {
+  showPreview = () => {
+    console.log("hey, show me the preview!");
+  };
   render() {
     const settings = {
       dots: false,
@@ -33,8 +37,7 @@ export default class MovieRow extends Component {
           breakpoint: 1024,
           settings: {
             slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true
+            slidesToScroll: 3
           }
         },
         {
@@ -60,9 +63,15 @@ export default class MovieRow extends Component {
         <div className='row-title'>{movieType}</div>
         <Slider {...settings}>
           {movies.map(movie => (
-            <MovieThumb key={movie.id} />
+            <MovieThumb
+              key={movie.id}
+              id={movie.id}
+              img={movie.poster_path}
+              showPreview={this.showPreview}
+            />
           ))}
         </Slider>
+        <MoviePreview />
       </StyledMovieRow>
     );
   }
