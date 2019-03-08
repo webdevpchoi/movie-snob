@@ -24,15 +24,30 @@ export default class MovieRow extends Component {
   state = {
     title: "",
     desc: "",
-    img: ""
+    poster: "",
+    backdrop: "",
+    releaseDate: "",
+    popularity: ""
   };
 
-  showPreview = movie => {
-    this.setState({
-      title: movie.title,
-      desc: movie.overview
-    });
+  getMovieDetails = async id => {
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const movieId = id;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      this.setState({
+        title: data.title,
+        poster: data.poster_path
+      });
+    } catch (err) {
+      console.log(`Couldn't fetch the endpoint!`);
+      console.log(err);
+    }
   };
+
   render() {
     const settings = {
       dots: false,
@@ -75,8 +90,8 @@ export default class MovieRow extends Component {
             <MovieThumb
               key={movie.id}
               id={movie.id}
-              movie={movie}
-              showPreview={this.showPreview}
+              poster={movie.poster_path}
+              getMovieDetails={this.getMovieDetails}
             />
           ))}
         </Slider>
