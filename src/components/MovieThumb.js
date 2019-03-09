@@ -10,16 +10,17 @@ const StyledThumbnail = styled.div`
   }
 `;
 class MovieThumb extends Component {
+  //while this method seems redundant because we are passing the function down through props,
+  // it is to prevent from using an inline arrow function in the render method
+  getMovieDetails = () => {
+    this.props.clickHandler(this.props.id);
+  };
+
   render() {
     const { poster } = this.props;
     return (
       <StyledThumbnail>
-        <div
-          className='movie'
-          onClick={() => {
-            this.props.getMovieDetails(this.props.id);
-          }}
-        >
+        <div className='movie' onClick={this.getMovieDetails}>
           <img
             src={
               poster

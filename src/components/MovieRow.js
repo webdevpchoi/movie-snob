@@ -30,7 +30,7 @@ export default class MovieRow extends Component {
     popularity: ""
   };
 
-  getMovieDetails = async id => {
+  clickHandler = async id => {
     const API_KEY = process.env.REACT_APP_API_KEY;
     const movieId = id;
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`;
@@ -91,7 +91,7 @@ export default class MovieRow extends Component {
               key={movie.id}
               id={movie.id}
               poster={movie.poster_path}
-              getMovieDetails={this.getMovieDetails}
+              clickHandler={this.clickHandler}
             />
           ))}
         </Slider>
