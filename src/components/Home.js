@@ -20,16 +20,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.getInitalMovies();
-    // //if there are movies in session storage, put them in the cachedMovies variable; otherwise, it will assign 'null'
-    // const cachedMovies = sessionStorage.getItem("movies");
-    // //if there are cached movies, change the data
-    // if (cachedMovies) {
-    //   const cachedData = JSON.parse(cachedMovies);
-    //   this.setState({ movies: [...cachedData] });
-    // } else {
-    //   //continue with rest of code if there's nothing cached
-    //   this.getInitalMovies();
-    // }
   }
 
   //on home page load, get several different genres of movies and tvs

@@ -40,7 +40,12 @@ export default class MovieRow extends Component {
       console.log(data);
       this.setState({
         title: data.title,
-        poster: data.poster_path
+        poster: data.poster_path,
+        desc: data.overview,
+        releaseDate: data.release_date,
+        popularity: data.popularity,
+        backdrop: data.backdrop_path,
+        runtime: data.runtime
       });
     } catch (err) {
       console.log(`Couldn't fetch the endpoint!`);
