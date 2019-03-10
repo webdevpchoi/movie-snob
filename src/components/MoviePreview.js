@@ -6,8 +6,19 @@ const StyledMoviePreview = styled.div`
   height: 300px;
   background: url(${props => props.img}) no-repeat 100% / cover;
   padding: 25px;
+  position: relative;
   .movie-details > span {
     margin: 0 10px;
+    color: #fff;
+  }
+  .overlay {
+    background: black;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
   }
 `;
 
@@ -34,6 +45,7 @@ export default class MoviePreview extends Component {
       <StyledMoviePreview
         img={backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null}
       >
+        <div className='overlay' />
         <h1>{title}</h1>
         <div className='movie-details'>
           <span>{releaseDate}</span>
