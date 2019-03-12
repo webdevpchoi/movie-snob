@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import YouTube from "react-youtube";
+import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
+import { ReactComponent as ArrowIcon } from "../icons/right-arrow.svg";
 
 const StyledMoviePreview = styled.div`
   background: url(${props => props.img}) no-repeat 100% / cover;
@@ -28,12 +30,43 @@ const StyledMoviePreview = styled.div`
   }
   .movie-details {
     max-width: 700px;
+    padding: 15px;
   }
   .trailer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1 1 0;
+  }
+  .movie-buttons {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const Button = styled.button`
+  max-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 8px;
+  background: transparent;
+  margin: 5px;
+  text-align: center;
+  vertical-align: center;
+  > span {
+    margin: 0 10px;
+  }
+  svg {
+    height: 25px;
+    width: 25px;
+    color: white;
+    fill: #fff;
   }
 `;
 
@@ -66,8 +99,18 @@ export default class MoviePreview extends Component {
             <h1>{title}</h1>
             <span>{releaseDate}</span>
             <span>{popularity}</span>
-            <span>{runtime}</span>
+            <span>{runtime} minutes</span>
             <p>{desc}</p>
+            <div className='movie-buttons'>
+              <Button>
+                <AddIcon />
+                <span>Add to Favorites</span>
+              </Button>
+              <Button>
+                <span>See more</span>
+                <ArrowIcon />
+              </Button>
+            </div>
           </div>
           <div className='trailer'>
             <YouTube videoId='PzcaR1N0pTI' opts={opts} />

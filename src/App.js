@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
  }
  html, body {
   overflow-x: hidden;
-  font-family: 'Playfair Display', sans-serif;
+  font-family: 'Playfair Display';
  }
 `;
 

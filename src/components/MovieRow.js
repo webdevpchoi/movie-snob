@@ -8,15 +8,17 @@ import MovieThumb from "./MovieThumb";
 import MoviePreview from "./MoviePreview";
 
 const StyledMovieRow = styled.div`
-  background: white;
   width: 85%;
+  background: transparent;
   margin: 15px 0;
   display: flex;
   flex-direction: column;
 
   .row-title {
+    font: 1.2rem Playfair Display;
     text-transform: capitalize;
     margin: 7.5px 15px;
+    color: #fff;
   }
 `;
 
