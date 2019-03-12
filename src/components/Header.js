@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { ReactComponent as Logo } from "../icons/film.svg";
 import SearchForm from "./SearchForm";
 
-const NavBar = styled.div`
+const StyledHeader = styled.div`
   background: transparent;
   font-family: ${props => props.theme.headerFont};
   font-weight: 900;
@@ -58,14 +58,14 @@ const StyledForm = styled(SearchForm)`
 
 const Header = ({ submitHandler, changeHandler }) => {
   return (
-    <NavBar>
+    <StyledHeader>
       <div className='logo-container'>
         <h1>MovieSnob</h1>
         <Logo />
       </div>
       <div className='spacer' />
       <StyledForm submitHandler={submitHandler} changeHandler={changeHandler} />
-    </NavBar>
+    </StyledHeader>
   );
 };
 

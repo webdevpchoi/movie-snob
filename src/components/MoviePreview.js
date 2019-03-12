@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import YouTube from "react-youtube";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
@@ -76,7 +77,7 @@ export default class MoviePreview extends Component {
       title,
       desc,
       releaseDate,
-      poster,
+      id,
       popularity,
       backdrop,
       runtime
@@ -98,14 +99,21 @@ export default class MoviePreview extends Component {
           <div className='movie-details'>
             <h1>{title}</h1>
             <span>{releaseDate}</span>
-            <span>{popularity}</span>
+            <span>{popularity},</span>
             <span>{runtime} minutes</span>
             <p>{desc}</p>
             <div className='movie-buttons'>
-              <Button>
-                <AddIcon />
-                <span>Add to Favorites</span>
-              </Button>
+              <Link
+                to={{
+                  pathname: `/movies/${id}`,
+                  state: { ...this.props.details }
+                }}
+              >
+                <Button>
+                  <AddIcon />
+                  <span>Add to Favorites</span>
+                </Button>
+              </Link>
               <Button>
                 <span>See more</span>
                 <ArrowIcon />

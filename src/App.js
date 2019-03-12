@@ -3,9 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import "./index.css";
 
 import Home from "./components/Home";
-import Movie from "./components/Movie";
 import NotFound from "./components/NotFound";
 import { createGlobalStyle } from "styled-components";
+import MovieDetails from "./components/MovieDetails";
 
 //global styles that should only be injected once, if necessary ta all
 const GlobalStyle = createGlobalStyle`
@@ -28,7 +28,7 @@ class App extends React.Component {
         <GlobalStyle />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/movies/:movieid' component={Movie} />
+          <Route exact path='/movies/:movieid' component={MovieDetails} />
           <Route component={NotFound} />
         </Switch>
       </React.Fragment>

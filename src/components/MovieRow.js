@@ -25,13 +25,14 @@ const StyledMovieRow = styled.div`
 export default class MovieRow extends Component {
   state = {
     title: "",
+    id: "",
     desc: "",
-    poster: "",
     backdrop: "",
     releaseDate: "",
     popularity: ""
   };
 
+  //this is the handler that runs when you click on a moviethumbnail, and takes the endpoint data and sets it into state
   clickHandler = async id => {
     const API_KEY = process.env.REACT_APP_API_KEY;
     const movieId = id;
@@ -42,7 +43,7 @@ export default class MovieRow extends Component {
       console.log(data);
       this.setState({
         title: data.title,
-        poster: data.poster_path,
+        id: data.id,
         desc: data.overview,
         releaseDate: data.release_date,
         popularity: data.popularity,
