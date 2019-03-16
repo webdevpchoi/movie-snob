@@ -1,13 +1,25 @@
 import React from "react";
+import styled from "styled-components/macro";
 
-export default function Cast() {
+const StyledCast = styled.div`
+  display: flex;
+  .cast-desc span {
+    display: block;
+  }
+`;
+
+export default function Cast({ details: { profile_path, character, name } }) {
   return (
-    <div>
-      <img src='' alt='' />
+    <StyledCast>
+      <img
+        src={`https://image.tmdb.org/t/p/w185/${profile_path}`}
+        alt=''
+        className='cast-img'
+      />
       <div className='cast-desc'>
-        <span className='character-name'>Character name</span>
-        <span>Real name</span>
+        <span className='character-name'>{character}</span>
+        <span>{name}</span>
       </div>
-    </div>
+    </StyledCast>
   );
 }
