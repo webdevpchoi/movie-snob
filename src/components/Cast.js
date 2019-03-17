@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-const StyledCast = styled.div`
-  display: flex;
-  .cast-desc span {
-    display: block;
-  }
-`;
+const StyledCast = styled.div``;
 
 export default function Cast({ details: { profile_path, character, name } }) {
   return (

@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
  html, body {
   overflow-x: hidden;
   font-family: 'Playfair Display';
- }
+  background: rgba(34, 46, 80, 1);
 `;
 
 class App extends React.Component {
