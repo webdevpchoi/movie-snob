@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
-import YouTube from "react-youtube";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
 import { ReactComponent as ArrowIcon } from "../icons/right-arrow.svg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
+import Cast from "./Cast";
+import YouTube from "react-youtube";
 
 const StyledMoviePreview = styled.div`
   background: url(${props => props.img}) no-repeat 100% / cover;
@@ -24,24 +29,35 @@ const StyledMoviePreview = styled.div`
     z-index: 1;
   }
   .content {
-    display: flex;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
     position: relative;
     z-index: 2;
     color: #fff;
+    .cast-container {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      .cast-row {
+        width: 90%;
+      }
+    }
   }
   .movie-details {
     max-width: 700px;
     padding: 15px;
   }
   .trailer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1 1 0;
+    min-width: 640px;
   }
   .movie-buttons {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
   }
@@ -72,6 +88,27 @@ const Button = styled.button`
 `;
 
 export default class MoviePreview extends Component {
+  state = {
+    cast: []
+  };
+
+  getCast = async () => {
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const movieId = 297802;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`;
+    await fetch(url)
+      .then(res => res.json())
+      .then(data =>
+        this.setState({
+          cast: [...data.cast]
+        })
+      );
+  };
+
+  componentDidMount() {
+    console.log(this.props.details);
+    this.getCast();
+  }
   render() {
     const {
       title,
@@ -89,6 +126,40 @@ export default class MoviePreview extends Component {
       playerVars: {
         // https://developers.google.com/youtube/player_parameters
       }
+    };
+
+    const settings = {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      initialSlide: 0,
+      className: "cast-row",
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
     };
     return (
       <StyledMoviePreview
@@ -123,6 +194,13 @@ export default class MoviePreview extends Component {
           </div>
           <div className='trailer'>
             <YouTube videoId='PzcaR1N0pTI' opts={opts} />
+          </div>
+          <div className='cast-container'>
+            <Slider {...settings}>
+              {this.state.cast.map(cast =>
+                cast.profile_path ? <Cast details={cast} key={cast.id} /> : null
+              )}
+            </Slider>
           </div>
         </div>
       </StyledMoviePreview>

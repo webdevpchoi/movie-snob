@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
   overflow-x: hidden;
   font-family: 'Playfair Display';
   background: rgba(34, 46, 80, 1);
+ }
 `;
 
 class App extends React.Component {
@@ -28,7 +29,6 @@ class App extends React.Component {
         <GlobalStyle />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/movies/:movieid' component={MovieDetails} />
           <Route component={NotFound} />
         </Switch>
       </React.Fragment>

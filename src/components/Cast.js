@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components/macro";
 
-const StyledCast = styled.div``;
+const StyledCast = styled.div`
+  img {
+    height: 200px;
+  }
+  .cast-desc span {
+    display: block;
+  }
+`;
 
 export default function Cast({ details: { profile_path, character, name } }) {
   return (
