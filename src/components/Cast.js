@@ -3,10 +3,16 @@ import styled from "styled-components/macro";
 
 const StyledCast = styled.div`
   img {
-    height: 200px;
+    width: 165px;
   }
   .cast-desc span {
     display: block;
+    max-width: 165px;
+    padding: 5px;
+  }
+  .character-name {
+    font-weight: 600;
+    font-size: 1.15rem;
   }
 `;
 
@@ -20,7 +26,9 @@ export default function Cast({ details: { profile_path, character, name } }) {
       />
       <div className='cast-desc'>
         <span className='character-name'>{character}</span>
-        <span>{name}</span>
+        <span>
+          <em>{name}</em>
+        </span>
       </div>
     </StyledCast>
   );

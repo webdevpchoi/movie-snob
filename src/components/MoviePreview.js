@@ -39,12 +39,10 @@ const StyledMoviePreview = styled.div`
     .cast-container {
       grid-column-start: 1;
       grid-column-end: 3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
       .cast-row {
         width: 90%;
+        margin: 0 auto;
       }
     }
   }
@@ -178,7 +176,7 @@ export default class MoviePreview extends Component {
                 <AddIcon />
                 <span>Add to Favorites</span>
               </Button>
-              <Link
+              {/* <Link
                 to={{
                   pathname: `/movies/${id}`,
                   movieId: id
@@ -189,13 +187,14 @@ export default class MoviePreview extends Component {
                   <span>See more</span>
                   <ArrowIcon />
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className='trailer'>
             <YouTube videoId='PzcaR1N0pTI' opts={opts} />
           </div>
           <div className='cast-container'>
+            <h3>Cast</h3>
             <Slider {...settings}>
               {this.state.cast.map(cast =>
                 cast.profile_path ? <Cast details={cast} key={cast.id} /> : null

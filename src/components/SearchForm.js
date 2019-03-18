@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const Button = styled.button`
   background: ${props => props.theme.mainColor};
@@ -9,12 +9,16 @@ const Button = styled.button`
   padding: 5px 10px;
   margin: 5px 10px;
 `;
+
+const StyledForm = styled.form`
+  background: transparent;
+`;
 const SearchForm = ({ submitHandler, changeHandler, className }) => {
   return (
-    <form action='' onSubmit={submitHandler} className={className}>
+    <StyledForm onSubmit={submitHandler} className={className}>
       <input type='text' className='movie-input' onChange={changeHandler} />
       <Button type='submit'>Search</Button>
-    </form>
+    </StyledForm>
   );
 };
 

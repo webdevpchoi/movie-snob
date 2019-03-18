@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import MovieRow from "./MovieRow";
 
 const StyledMovieDisplay = styled.div`
-  background: black;
+  background: ${props => props.theme.mainColor};
   padding: 15px;
   display: flex;
   align-items: center;

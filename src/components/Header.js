@@ -12,6 +12,10 @@ const StyledHeader = styled.div`
   display: flex;
   color: ${props => props.theme.accentColor};
   padding: 15px 15px;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100vw;
 
   h1 {
     margin: 0;
@@ -46,14 +50,9 @@ const StyledHeader = styled.div`
       left: 0;
     }
   }
-
   .spacer {
     flex: 1;
   }
-`;
-
-const StyledForm = styled(SearchForm)`
-  background: white;
 `;
 
 const Header = ({ submitHandler, changeHandler }) => {
@@ -64,7 +63,7 @@ const Header = ({ submitHandler, changeHandler }) => {
         <Logo />
       </div>
       <div className='spacer' />
-      <StyledForm submitHandler={submitHandler} changeHandler={changeHandler} />
+      <SearchForm submitHandler={submitHandler} changeHandler={changeHandler} />
     </StyledHeader>
   );
 };

@@ -5,7 +5,6 @@ import "./index.css";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { createGlobalStyle } from "styled-components";
-import MovieDetails from "./components/MovieDetails";
 
 //global styles that should only be injected once, if necessary ta all
 const GlobalStyle = createGlobalStyle`
@@ -18,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
  html, body {
   overflow-x: hidden;
   font-family: 'Playfair Display';
-  background: rgba(34, 46, 80, 1);
+  background: ${props => props.theme.mainColor};
  }
 `;
 
