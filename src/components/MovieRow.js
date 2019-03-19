@@ -103,7 +103,10 @@ export default class MovieRow extends Component {
             />
           ))}
         </Slider>
-        <MoviePreview details={this.state} />
+        <MoviePreview
+          details={this.state}
+          addFavorite={this.props.addFavorite}
+        />
       </StyledMovieRow>
     );
   }

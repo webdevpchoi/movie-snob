@@ -172,22 +172,10 @@ export default class MoviePreview extends Component {
             <span>{runtime} minutes</span>
             <p>{desc}</p>
             <div className='movie-buttons'>
-              <Button>
+              <Button onClick={this.props.addFavorite}>
                 <AddIcon />
                 <span>Add to Favorites</span>
               </Button>
-              {/* <Link
-                to={{
-                  pathname: `/movies/${id}`,
-                  movieId: id
-                }}
-                onClick={this.getMovieDetails}
-              >
-                <Button>
-                  <span>See more</span>
-                  <ArrowIcon />
-                </Button>
-              </Link> */}
             </div>
           </div>
           <div className='trailer'>
