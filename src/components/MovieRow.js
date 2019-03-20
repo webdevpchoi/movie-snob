@@ -32,7 +32,7 @@ export default class MovieRow extends Component {
     popularity: ""
   };
 
-  //this is the handler that runs when you click on a moviethumbnail, and takes the endpoint data and sets it into state
+  //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
   clickHandler = async id => {
     const API_KEY = process.env.REACT_APP_API_KEY;
     const movieId = id;
@@ -40,9 +40,9 @@ export default class MovieRow extends Component {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       this.setState({
         title: data.title,
+        posterPath: data.poster_path,
         id: data.id,
         desc: data.overview,
         releaseDate: data.release_date,

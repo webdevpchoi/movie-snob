@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Slider from "react-slick";
+import MovieThumb from "./MovieThumb";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -19,7 +20,8 @@ const StyledFavorites = styled.div`
   }
 `;
 
-export default function Favorites() {
+export default function Favorites({ movies }) {
+  console.log(movies);
   const settings = {
     dots: false,
     infinite: false,
@@ -56,14 +58,15 @@ export default function Favorites() {
     <StyledFavorites>
       <div className='row-title'>My Favorites</div>
       <Slider {...settings}>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
-        <div>some movie here</div>
+        {movies.length
+          ? movies.map(movie => (
+              <MovieThumb
+                id={movie.id}
+                key={movie.id}
+                poster={movie.posterPath}
+              />
+            ))
+          : null}
       </Slider>
     </StyledFavorites>
   );

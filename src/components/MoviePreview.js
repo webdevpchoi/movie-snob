@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
-import { ReactComponent as ArrowIcon } from "../icons/right-arrow.svg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -103,8 +101,17 @@ export default class MoviePreview extends Component {
       );
   };
 
+  //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
+  addFavorite = () => {
+    const { id, posterPath } = this.props.details;
+    const movie = {
+      id,
+      posterPath
+    };
+    this.props.addFavorite(movie);
+  };
+
   componentDidMount() {
-    console.log(this.props.details);
     this.getCast();
   }
   render() {
@@ -112,7 +119,6 @@ export default class MoviePreview extends Component {
       title,
       desc,
       releaseDate,
-      id,
       popularity,
       backdrop,
       runtime
@@ -172,7 +178,7 @@ export default class MoviePreview extends Component {
             <span>{runtime} minutes</span>
             <p>{desc}</p>
             <div className='movie-buttons'>
-              <Button onClick={this.props.addFavorite}>
+              <Button onClick={this.addFavorite}>
                 <AddIcon />
                 <span>Add to Favorites</span>
               </Button>
