@@ -98,7 +98,7 @@ export default class MovieRow extends Component {
             <MovieThumb
               key={movie.id}
               id={movie.id}
-              poster={movie.poster_path}
+              poster={movie.poster_path || movie.posterPath}
               clickHandler={this.clickHandler}
             />
           ))}

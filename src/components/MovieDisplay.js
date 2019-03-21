@@ -28,7 +28,13 @@ export default class MovieDisplay extends Component {
     const { movies } = this.props;
     return (
       <StyledMovieDisplay>
-        <Favorites movies={this.state.favorites} />
+        {/* <Favorites movies={this.state.favorites} /> */}
+
+        <MovieRow
+          movieData={this.state.favorites}
+          movieType='favorites'
+          addFavorite={this.addFavorite}
+        />
         <MovieRow
           movieData={movies.trending.results}
           movieType='trending'

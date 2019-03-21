@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import MovieThumb from "./MovieThumb";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MoviePreview from "./MoviePreview";
 
 const StyledFavorites = styled.div`
   width: 85%;
@@ -68,6 +69,7 @@ export default function Favorites({ movies }) {
             ))
           : null}
       </Slider>
+      <MoviePreview />
     </StyledFavorites>
   );
 }

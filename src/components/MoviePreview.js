@@ -103,11 +103,7 @@ export default class MoviePreview extends Component {
 
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
-    const { id, posterPath } = this.props.details;
-    const movie = {
-      id,
-      posterPath
-    };
+    const movie = this.props.details;
     this.props.addFavorite(movie);
   };
 
