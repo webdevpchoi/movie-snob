@@ -106,6 +106,8 @@ export default class MovieRow extends Component {
         <MoviePreview
           details={this.state}
           addFavorite={this.props.addFavorite}
+          removeFavorite={this.props.removeFavorite}
+          movieType={movieType}
         />
       </StyledMovieRow>
     );

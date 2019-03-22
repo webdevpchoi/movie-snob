@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
+import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -107,6 +108,11 @@ export default class MoviePreview extends Component {
     this.props.addFavorite(movie);
   };
 
+  removeFavorite = () => {
+    const { id } = this.props.details;
+    this.props.removeFavorite(id);
+  };
+
   componentDidMount() {
     this.getCast();
   }
@@ -161,6 +167,21 @@ export default class MoviePreview extends Component {
         }
       ]
     };
+
+    const AddButton = (
+      <Button onClick={this.addFavorite}>
+        <AddIcon />
+        <span>Add to Favorites</span>
+      </Button>
+    );
+
+    const RemoveButton = (
+      <Button onClick={this.removeFavorite}>
+        {this.props.movieType === "favorites" ? <CloseIcon /> : null}
+        <span>Add to Favorites</span>
+      </Button>
+    );
+
     return (
       <StyledMoviePreview
         img={backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null}
@@ -174,10 +195,8 @@ export default class MoviePreview extends Component {
             <span>{runtime} minutes</span>
             <p>{desc}</p>
             <div className='movie-buttons'>
-              <Button onClick={this.addFavorite}>
-                <AddIcon />
-                <span>Add to Favorites</span>
-              </Button>
+              {AddButton}
+              {this.props.movieType === "favorites" ? RemoveButton : null}
             </div>
           </div>
           <div className='trailer'>
