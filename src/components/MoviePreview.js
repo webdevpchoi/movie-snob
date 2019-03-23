@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
+import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
 import "slick-carousel/slick/slick.css";
@@ -51,12 +52,24 @@ const StyledMoviePreview = styled.div`
   }
   .trailer {
     min-width: 640px;
+    padding-top: 50px;
   }
   .movie-buttons {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+  }
+  .exit-icon {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -188,6 +201,7 @@ export default class MoviePreview extends Component {
       >
         <div className='overlay' />
         <div className='content'>
+          <ExitIcon className='exit-icon' onClick={this.props.exitPreview} />
           <div className='movie-details'>
             <h1>{title}</h1>
             <span>{releaseDate}</span>

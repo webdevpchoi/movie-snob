@@ -24,6 +24,7 @@ const StyledMovieRow = styled.div`
 
 export default class MovieRow extends Component {
   state = {
+    showPreview: false,
     title: "",
     id: "",
     desc: "",
@@ -48,12 +49,19 @@ export default class MovieRow extends Component {
         releaseDate: data.release_date,
         popularity: data.popularity,
         backdrop: data.backdrop_path,
-        runtime: data.runtime
+        runtime: data.runtime,
+        showPreview: true
       });
     } catch (err) {
       console.log(`Couldn't fetch the endpoint!`);
       console.log(err);
     }
+  };
+
+  exitPreview = () => {
+    this.setState(state => {
+      return { showPreview: false };
+    });
   };
 
   render() {
@@ -90,6 +98,15 @@ export default class MovieRow extends Component {
       ]
     };
     const { movieType, movieData } = this.props;
+    const moviePreview = (
+      <MoviePreview
+        details={this.state}
+        addFavorite={this.props.addFavorite}
+        removeFavorite={this.props.removeFavorite}
+        movieType={movieType}
+        exitPreview={this.exitPreview}
+      />
+    );
     return (
       <StyledMovieRow>
         <div className='row-title'>{movieType}</div>
@@ -103,12 +120,7 @@ export default class MovieRow extends Component {
             />
           ))}
         </Slider>
-        <MoviePreview
-          details={this.state}
-          addFavorite={this.props.addFavorite}
-          removeFavorite={this.props.removeFavorite}
-          movieType={movieType}
-        />
+        {this.state.showPreview ? moviePreview : null}
       </StyledMovieRow>
     );
   }

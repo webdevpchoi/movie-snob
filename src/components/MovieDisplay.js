@@ -25,11 +25,9 @@ export default class MovieDisplay extends Component {
 
   removeFavorite = id => {
     this.setState(state => {
-      return state.favorites.filter(movie => {
-        return id === movie.id;
-      });
+      const updatedArr = state.favorites.filter(movie => !(id === movie.id));
+      return { favorites: updatedArr };
     });
-    console.log("removed favorite");
   };
 
   render() {
