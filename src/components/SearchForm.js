@@ -13,9 +13,9 @@ const Button = styled.button`
 const StyledForm = styled.form`
   background: transparent;
 `;
-const SearchForm = ({ submitHandler, changeHandler, className }) => {
+const SearchForm = ({ searchMovie, changeHandler, className }) => {
   return (
-    <StyledForm onSubmit={submitHandler} className={className}>
+    <StyledForm onSubmit={searchMovie} className={className}>
       <input type='text' className='movie-input' onChange={changeHandler} />
       <Button type='submit'>Search</Button>
     </StyledForm>

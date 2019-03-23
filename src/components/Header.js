@@ -55,7 +55,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ submitHandler, changeHandler }) => {
+const Header = ({ searchMovie, changeHandler }) => {
   return (
     <StyledHeader>
       <div className='logo-container'>
@@ -63,7 +63,7 @@ const Header = ({ submitHandler, changeHandler }) => {
         <Logo />
       </div>
       <div className='spacer' />
-      <SearchForm submitHandler={submitHandler} changeHandler={changeHandler} />
+      <SearchForm searchMovie={searchMovie} changeHandler={changeHandler} />
     </StyledHeader>
   );
 };
