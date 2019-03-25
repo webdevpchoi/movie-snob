@@ -32,14 +32,18 @@ export default class MovieDisplay extends Component {
 
   render() {
     const { movies } = this.props;
+    const displayFavorites = (
+      <MovieRow
+        movieData={this.state.favorites}
+        movieType='favorites'
+        addFavorite={this.addFavorite}
+        removeFavorite={this.removeFavorite}
+      />
+    );
     return (
       <StyledMovieDisplay>
-        <MovieRow
-          movieData={this.state.favorites}
-          movieType='favorites'
-          addFavorite={this.addFavorite}
-          removeFavorite={this.removeFavorite}
-        />
+        {/* hide favorites component if there are none in state */}
+        {this.state.favorites.length !== 0 ? displayFavorites : null}
         <MovieRow
           movieData={movies.trending.results}
           movieType='trending'

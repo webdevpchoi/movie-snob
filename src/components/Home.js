@@ -12,6 +12,7 @@ class Home extends Component {
     searchTerm: null,
     searchResults: null,
     movies: null,
+    randomMovie: null,
     loading: true
   };
 
@@ -46,6 +47,7 @@ class Home extends Component {
       for (const [movie, movieData] of movieArr) {
         dataObj[movie] = movieData;
       }
+      this.setRandomMovie(dataObj.trending.results);
       return dataObj;
     });
     //with the returned object, push it into current state, then turn off loading
@@ -53,29 +55,40 @@ class Home extends Component {
       this.setState({ movies: movieObj, loading: false });
     });
   };
+  //get a random movie from trending and place it in HeroImage
+  setRandomMovie = movieArr => {
+    const randomMovie = movieArr[Math.floor(Math.random() * movieArr.length)];
+    this.setState({ randomMovie });
+  };
   //event handler for search functionality
   changeHandler = async e => {
     const searchTerm = e.currentTarget.value;
     const API_KEY = process.env.REACT_APP_API_KEY;
     const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${searchTerm}&include_adult=false`;
     const searchResults = await fetch(searchUrl).then(res => res.json());
-    this.setState({ searchResults });
+    if (searchTerm) {
+      this.setState({ searchResults, searchTerm });
+    } else {
+      this.setState({ searchResults: null, searchTerm: null });
+    }
   };
 
   render() {
-    const { movies, searchResults } = this.state;
+    const { movies, searchResults, searchTerm, randomMovie } = this.state;
     return (
       <div className='App'>
         <Header
           searchMovie={this.searchMovie}
           changeHandler={this.changeHandler}
         />
-        <HeroImage />
+        {this.state.randomMovie ? (
+          <HeroImage randomMovie={randomMovie} />
+        ) : null}
         {this.state.loading ? <Loader /> : null}
         {this.state.movies && !this.state.searchResults ? (
           <MovieDisplay movies={movies} />
         ) : (
-          <MovieSearch movies={searchResults} />
+          <MovieSearch movies={searchResults} searchTerm={searchTerm} />
         )}
       </div>
     );

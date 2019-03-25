@@ -191,7 +191,7 @@ export default class MoviePreview extends Component {
     const RemoveButton = (
       <Button onClick={this.removeFavorite}>
         {this.props.movieType === "favorites" ? <CloseIcon /> : null}
-        <span>Add to Favorites</span>
+        <span>Remove</span>
       </Button>
     );
 

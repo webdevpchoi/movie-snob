@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
-import placeholder from "../images/placeholder.jpg";
 
 const StyledHero = styled.div`
   width: 100%;
-  height: 50vh;
+  height: 90vh;
   position: relative;
   img {
     object-fit: cover;
@@ -27,6 +26,7 @@ const StyledHero = styled.div`
 
 export default class HeroImage extends Component {
   render() {
+    const { backdrop_path: backdrop } = this.props.randomMovie;
     return (
       <StyledHero>
         <div className='hero-overlay'>
@@ -44,7 +44,7 @@ export default class HeroImage extends Component {
             </p>
           </div>
         </div>
-        <img src={placeholder} alt='' />
+        <img src={`https://image.tmdb.org/t/p/w1280/${backdrop}`} alt='' />
       </StyledHero>
     );
   }

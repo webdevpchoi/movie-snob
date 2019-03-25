@@ -16,7 +16,8 @@ import { ThemeProvider } from "styled-components";
 const theme = {
   headerFont: "Playfair Display",
   accentColor: "rgba(252, 213, 129, 1)",
-  mainColor: "#161e35"
+  mainColor: "#161e35",
+  mainTextColor: "rgba(252,213,129,1)"
 };
 
 ReactDOM.render(
