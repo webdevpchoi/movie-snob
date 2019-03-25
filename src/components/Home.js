@@ -4,17 +4,14 @@ import "../App.css";
 import Header from "./Header";
 import HeroImage from "./HeroImage";
 import MovieDisplay from "./MovieDisplay";
+import MovieSearch from "./MovieSearch";
 import Loader from "./Loader";
 
 class Home extends Component {
   state = {
     searchTerm: null,
-    movies: {
-      trending: {},
-      topRated: {},
-      nowPlaying: {},
-      upcoming: {}
-    },
+    searchResults: null,
+    movies: null,
     loading: true
   };
 
@@ -56,24 +53,17 @@ class Home extends Component {
       this.setState({ movies: movieObj, loading: false });
     });
   };
-
-  searchMovie = e => {
-    e.preventDefault();
-    console.log("searched movie!");
-  };
-
-  changeHandler = e => {
+  //event handler for search functionality
+  changeHandler = async e => {
     const searchTerm = e.currentTarget.value;
-    this.setState({ searchTerm });
-  };
-
-  submitHandler = e => {
-    e.preventDefault();
-    this.getMovies();
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${searchTerm}&include_adult=false`;
+    const searchResults = await fetch(searchUrl).then(res => res.json());
+    this.setState({ searchResults });
   };
 
   render() {
-    const { movies } = this.state;
+    const { movies, searchResults } = this.state;
     return (
       <div className='App'>
         <Header
@@ -81,7 +71,12 @@ class Home extends Component {
           changeHandler={this.changeHandler}
         />
         <HeroImage />
-        {this.state.loading ? <Loader /> : <MovieDisplay movies={movies} />}
+        {this.state.loading ? <Loader /> : null}
+        {this.state.movies && !this.state.searchResults ? (
+          <MovieDisplay movies={movies} />
+        ) : (
+          <MovieSearch movies={searchResults} />
+        )}
       </div>
     );
   }
