@@ -9,9 +9,6 @@ const SearchResults = styled.div`
     color: ${props => props.theme.mainTextColor};
     grid-column: 1 / 6;
   }
-  img {
-    max-height: 444px;
-  }
 `;
 export default function MovieSearch({ movies, searchTerm }) {
   return (
