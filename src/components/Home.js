@@ -57,7 +57,6 @@ class Home extends Component {
     });
 
     getDetails(297802);
-    getCast(297802);
   };
   //get a random movie from trending and place it in HeroImage
   setRandomMovie = movieArr => {

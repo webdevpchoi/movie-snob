@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { getCast } from "../helper";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
 import Cast from "./Cast";
@@ -98,23 +99,6 @@ const Button = styled.button`
 `;
 
 export default class MoviePreview extends Component {
-  state = {
-    cast: []
-  };
-
-  getCast = async () => {
-    const API_KEY = process.env.REACT_APP_API_KEY;
-    const movieId = 297802;
-    const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`;
-    await fetch(url)
-      .then(res => res.json())
-      .then(data =>
-        this.setState({
-          cast: [...data.cast]
-        })
-      );
-  };
-
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
@@ -126,9 +110,6 @@ export default class MoviePreview extends Component {
     this.props.removeFavorite(id);
   };
 
-  componentDidMount() {
-    this.getCast();
-  }
   render() {
     const {
       title,
@@ -136,7 +117,9 @@ export default class MoviePreview extends Component {
       releaseDate,
       popularity,
       backdrop,
-      runtime
+      runtime,
+      cast,
+      videoKey
     } = this.props.details;
 
     const opts = {
@@ -214,12 +197,12 @@ export default class MoviePreview extends Component {
             </div>
           </div>
           <div className='trailer'>
-            <YouTube videoId='PzcaR1N0pTI' opts={opts} />
+            <YouTube videoId={videoKey} opts={opts} />
           </div>
           <div className='cast-container'>
             <h3>Cast</h3>
             <Slider {...settings}>
-              {this.state.cast.map(cast =>
+              {cast.map(cast =>
                 cast.profile_path ? <Cast details={cast} key={cast.id} /> : null
               )}
             </Slider>

@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import MovieThumb from "./MovieThumb";
 import MoviePreview from "./MoviePreview";
+import { getCast, getVideo, getDetails } from "../helper";
 
 const StyledMovieRow = styled.div`
   width: 85%;
@@ -30,14 +31,19 @@ export default class MovieRow extends Component {
     desc: "",
     backdrop: "",
     releaseDate: "",
-    popularity: ""
+    popularity: "",
+    cast: [],
+    videoKey: ""
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
   clickHandler = async id => {
     const API_KEY = process.env.REACT_APP_API_KEY;
-    const movieId = id;
-    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+    //
+    getCast(id).then(cast => this.setState({ cast }));
+    getVideo(id).then(video => this.setState({ videoKey: video.key }));
+
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
     try {
       const response = await fetch(url);
       const data = await response.json();
