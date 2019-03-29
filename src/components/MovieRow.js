@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 import styled from "styled-components/macro";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,13 +15,28 @@ const StyledMovieRow = styled.div`
   margin: 15px 0;
   display: flex;
   flex-direction: column;
+  transition: all 2s;
 
-  .row-title {
+  /* .row-title {
     font: 1.2rem Playfair Display;
     text-transform: capitalize;
     margin: 7.5px 15px;
     color: #fff;
   }
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 2000ms;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 2000ms;
+  } */
 `;
 
 export default class MovieRow extends Component {
@@ -33,40 +49,43 @@ export default class MovieRow extends Component {
     releaseDate: "",
     popularity: "",
     cast: [],
-    videoKey: ""
+    videoKey: "",
+    propIn: false
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
   clickHandler = async id => {
-    const API_KEY = process.env.REACT_APP_API_KEY;
-    //
     getCast(id).then(cast => this.setState({ cast }));
     getVideo(id).then(video => this.setState({ videoKey: video.key }));
+    getDetails(id).then(details => {
+      const {
+        title,
+        poster_path: posterPath,
+        id,
+        overview: desc,
+        release_date: releaseDate,
+        popularity,
+        backdrop_path: backdrop,
+        runtime
+      } = details;
 
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
       this.setState({
-        title: data.title,
-        posterPath: data.poster_path,
-        id: data.id,
-        desc: data.overview,
-        releaseDate: data.release_date,
-        popularity: data.popularity,
-        backdrop: data.backdrop_path,
-        runtime: data.runtime,
-        showPreview: true
+        title,
+        posterPath,
+        desc,
+        releaseDate,
+        popularity,
+        backdrop,
+        runtime,
+        showPreview: true,
+        propIn: true
       });
-    } catch (err) {
-      console.log(`Couldn't fetch the endpoint!`);
-      console.log(err);
-    }
+    });
   };
 
   exitPreview = () => {
     this.setState(state => {
-      return { showPreview: false };
+      return { showPreview: false, propIn: false };
     });
   };
 
@@ -126,7 +145,19 @@ export default class MovieRow extends Component {
             />
           ))}
         </Slider>
-        {this.state.showPreview ? moviePreview : null}
+        {/* <CSSTransition
+          in={this.state.propIn}
+          timeout={2000}
+          classNames={"fade"}
+        > */}
+        <div className='jawbone'>
+          <div className='jawboneOpenContainer'>
+            <div className='jawboneFadeInPlaceContainer'>
+              {this.state.showPreview ? moviePreview : null}
+            </div>
+          </div>
+        </div>
+        {/* </CSSTransition> */}
       </StyledMovieRow>
     );
   }
