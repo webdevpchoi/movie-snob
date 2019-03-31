@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getCast } from "../helper";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";

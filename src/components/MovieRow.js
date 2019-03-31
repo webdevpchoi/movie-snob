@@ -5,17 +5,48 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { ReactComponent as PrevArrow } from "../icons/prev-arrow.svg";
+import { ReactComponent as NextArrow } from "../icons/next-arrow.svg";
 import MovieThumb from "./MovieThumb";
 import MoviePreview from "./MoviePreview";
 import { getCast, getVideo, getDetails } from "../helper";
 
 const StyledMovieRow = styled.div`
-  width: 85%;
+  width: 100%;
   background: transparent;
   margin: 15px 0;
   display: flex;
   flex-direction: column;
   transition: all 2s;
+
+  > div:first-child {
+    padding: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+    text-transform: capitalize;
+  }
+  .slick-list {
+    overflow: visible;
+  }
+  .slick-prev,
+  .slick-next {
+    fill: #fff;
+    height: 100%;
+    z-index: 1;
+    width: 50px;
+    opacity: 0;
+    transition: background 150ms, opacity 150ms;
+    :hover {
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 1;
+    }
+  }
+  .slick-prev {
+    left: 0;
+  }
+  .slick-next {
+    right: 0;
+  }
 
   /* .row-title {
     font: 1.2rem Playfair Display;
@@ -97,6 +128,8 @@ export default class MovieRow extends Component {
       slidesToShow: 6,
       slidesToScroll: 6,
       initialSlide: 0,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
       responsive: [
         {
           breakpoint: 1024,

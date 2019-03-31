@@ -4,7 +4,6 @@ import MovieRow from "./MovieRow";
 
 const StyledMovieDisplay = styled.div`
   background: ${props => props.theme.mainColor};
-  padding: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
