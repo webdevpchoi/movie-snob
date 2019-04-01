@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { CSSTransition } from "react-transition-group";
 import styled from "styled-components/macro";
 import Slider from "react-slick";
+import { Transition } from "react-transition-group";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -10,6 +10,18 @@ import { ReactComponent as NextArrow } from "../icons/next-arrow.svg";
 import MovieThumb from "./MovieThumb";
 import MoviePreview from "./MoviePreview";
 import { getCast, getVideo, getDetails } from "../helper";
+
+const animationSpeed = 300;
+
+const defaultStyle = {
+  transition: `opacity ${animationSpeed}ms ease-in-out`,
+  opacity: 0
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
 
 const StyledMovieRow = styled.div`
   width: 100%;
@@ -47,27 +59,6 @@ const StyledMovieRow = styled.div`
   .slick-next {
     right: 0;
   }
-
-  /* .row-title {
-    font: 1.2rem Playfair Display;
-    text-transform: capitalize;
-    margin: 7.5px 15px;
-    color: #fff;
-  }
-  .fade-enter {
-    opacity: 0;
-  }
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 2000ms;
-  }
-  .fade-exit {
-    opacity: 1;
-  }
-  .fade-exit-active {
-    opacity: 0;
-    transition: opacity 2000ms;
-  } */
 `;
 
 export default class MovieRow extends Component {
@@ -81,7 +72,7 @@ export default class MovieRow extends Component {
     popularity: "",
     cast: [],
     videoKey: "",
-    propIn: false
+    fadeIn: false
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
@@ -109,14 +100,14 @@ export default class MovieRow extends Component {
         backdrop,
         runtime,
         showPreview: true,
-        propIn: true
+        fadeIn: true
       });
     });
   };
 
   exitPreview = () => {
     this.setState(state => {
-      return { showPreview: false, propIn: false };
+      return { showPreview: false, fadeIn: false };
     });
   };
 
@@ -157,13 +148,15 @@ export default class MovieRow extends Component {
     };
     const { movieType, movieData } = this.props;
     const moviePreview = (
-      <MoviePreview
-        details={this.state}
-        addFavorite={this.props.addFavorite}
-        removeFavorite={this.props.removeFavorite}
-        movieType={movieType}
-        exitPreview={this.exitPreview}
-      />
+      <Transition timeout={animationSpeed} in={this.state.fadeIn}>
+        <MoviePreview
+          details={this.state}
+          addFavorite={this.props.addFavorite}
+          removeFavorite={this.props.removeFavorite}
+          movieType={movieType}
+          exitPreview={this.exitPreview}
+        />
+      </Transition>
     );
     return (
       <StyledMovieRow>
@@ -178,19 +171,7 @@ export default class MovieRow extends Component {
             />
           ))}
         </Slider>
-        {/* <CSSTransition
-          in={this.state.propIn}
-          timeout={2000}
-          classNames={"fade"}
-        > */}
-        <div className='jawbone'>
-          <div className='jawboneOpenContainer'>
-            <div className='jawboneFadeInPlaceContainer'>
-              {this.state.showPreview ? moviePreview : null}
-            </div>
-          </div>
-        </div>
-        {/* </CSSTransition> */}
+        {this.state.showPreview ? moviePreview : null}
       </StyledMovieRow>
     );
   }

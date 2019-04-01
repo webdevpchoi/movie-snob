@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
-
+import { Transition } from "react-transition-group";
 import Slider from "react-slick";
 import Cast from "./Cast";
 import YouTube from "react-youtube";
@@ -14,19 +14,17 @@ const StyledMoviePreview = styled.div`
   background: url(${props => props.img}) no-repeat 100% / cover;
   padding: 25px;
   position: relative;
+
   .movie-details > span {
     margin: 0 10px;
     color: #fff;
   }
   .overlay {
-    background: black;
     position: absolute;
     height: 100%;
     width: 100%;
-    opacity: 0.6;
     top: 0;
     left: 0;
-    z-index: 1;
   }
   .content {
     display: grid;
@@ -180,6 +178,12 @@ export default class MoviePreview extends Component {
     return (
       <StyledMoviePreview
         img={backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null}
+        style={{
+          entering: { opacity: 0 },
+          entered: { opacity: 1 },
+          transition: `opacity ${2000}ms ease-in-out`,
+          opacity: 0
+        }}
       >
         <div className='overlay' />
         <div className='content'>

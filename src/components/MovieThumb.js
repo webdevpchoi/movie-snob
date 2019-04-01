@@ -5,7 +5,6 @@ const StyledThumbnail = styled.div`
   margin: 2.5px;
   transition: transform 200ms;
   transform-origin: center;
-  z-index: 9;
   :hover {
     transform: scale(1.1);
     z-index: 10;
