@@ -178,12 +178,6 @@ export default class MoviePreview extends Component {
     return (
       <StyledMoviePreview
         img={backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null}
-        style={{
-          entering: { opacity: 0 },
-          entered: { opacity: 1 },
-          transition: `opacity ${2000}ms ease-in-out`,
-          opacity: 0
-        }}
       >
         <div className='overlay' />
         <div className='content'>
