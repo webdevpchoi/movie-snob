@@ -2,18 +2,25 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Transition } from "react-transition-group";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
-import { Transition } from "react-transition-group";
 import Slider from "react-slick";
 import Cast from "./Cast";
 import YouTube from "react-youtube";
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
 
 const StyledMoviePreview = styled.div`
   background: url(${props => props.img}) no-repeat 100% / cover;
   padding: 25px;
   position: relative;
+  transition: all 500ms;
+  opacity: 0;
 
   .movie-details > span {
     margin: 0 10px;
@@ -176,36 +183,51 @@ export default class MoviePreview extends Component {
     );
 
     return (
-      <StyledMoviePreview
-        img={backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null}
-      >
-        <div className='overlay' />
-        <div className='content'>
-          <ExitIcon className='exit-icon' onClick={this.props.exitPreview} />
-          <div className='movie-details'>
-            <h1>{title}</h1>
-            <span>{releaseDate}</span>
-            <span>{popularity},</span>
-            <span>{runtime} minutes</span>
-            <p>{desc}</p>
-            <div className='movie-buttons'>
-              {AddButton}
-              {this.props.movieType === "favorites" ? RemoveButton : null}
+      <Transition in={this.props.animate} timeout={500}>
+        {state => (
+          <StyledMoviePreview
+            img={
+              backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null
+            }
+            className={state}
+            style={{
+              ...transitionStyles[state]
+            }}
+          >
+            <div className='overlay' />
+            <div className='content'>
+              <ExitIcon
+                className='exit-icon'
+                onClick={this.props.exitPreview}
+              />
+              <div className='movie-details'>
+                <h1>{title}</h1>
+                <span>{releaseDate}</span>
+                <span>{popularity},</span>
+                <span>{runtime} minutes</span>
+                <p>{desc}</p>
+                <div className='movie-buttons'>
+                  {AddButton}
+                  {this.props.movieType === "favorites" ? RemoveButton : null}
+                </div>
+              </div>
+              <div className='trailer'>
+                <YouTube videoId={videoKey} opts={opts} />
+              </div>
+              <div className='cast-container'>
+                <h3>Cast</h3>
+                <Slider {...settings}>
+                  {cast.map(cast =>
+                    cast.profile_path ? (
+                      <Cast details={cast} key={cast.id} />
+                    ) : null
+                  )}
+                </Slider>
+              </div>
             </div>
-          </div>
-          <div className='trailer'>
-            <YouTube videoId={videoKey} opts={opts} />
-          </div>
-          <div className='cast-container'>
-            <h3>Cast</h3>
-            <Slider {...settings}>
-              {cast.map(cast =>
-                cast.profile_path ? <Cast details={cast} key={cast.id} /> : null
-              )}
-            </Slider>
-          </div>
-        </div>
-      </StyledMoviePreview>
+          </StyledMoviePreview>
+        )}
+      </Transition>
     );
   }
 }
