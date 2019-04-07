@@ -16,7 +16,6 @@ const StyledMovieRow = styled.div`
   margin: 15px 0;
   display: flex;
   flex-direction: column;
-  transition: all 2s;
 
   > div:first-child {
     padding: 15px;
@@ -24,9 +23,7 @@ const StyledMovieRow = styled.div`
     color: #fff;
     text-transform: capitalize;
   }
-  .slick-list {
-    overflow: visible;
-  }
+
   .slick-prev,
   .slick-next {
     fill: #fff;
@@ -59,7 +56,8 @@ export default class MovieRow extends Component {
     popularity: "",
     cast: [],
     videoKey: "",
-    animate: false
+    animate: false,
+    jawboneOpen: false
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
@@ -70,7 +68,6 @@ export default class MovieRow extends Component {
       const {
         title,
         poster_path: posterPath,
-        id,
         overview: desc,
         release_date: releaseDate,
         popularity,
@@ -86,7 +83,8 @@ export default class MovieRow extends Component {
         popularity,
         backdrop,
         runtime,
-        showPreview: true
+        showPreview: true,
+        isJawboneOpen: true
       });
       //had to separate this property so that all of the movie info would load before actually fading in the preview component
       setTimeout(() => {
@@ -96,11 +94,12 @@ export default class MovieRow extends Component {
   };
 
   exitPreview = () => {
-    this.setState(state => {
-      return { showPreview: false, animate: false };
-    });
+    this.setState({ animate: false, isJawboneOpen: false });
+    setTimeout(() => {
+      this.setState({ showPreview: false });
+    }, 700);
   };
-
+  x;
   render() {
     const settings = {
       dots: false,
@@ -137,6 +136,7 @@ export default class MovieRow extends Component {
       ]
     };
     const { movieType, movieData } = this.props;
+    const { isJawboneOpen } = this.state;
     const moviePreview = (
       <MoviePreview
         details={this.state}
@@ -148,7 +148,9 @@ export default class MovieRow extends Component {
       />
     );
     return (
-      <StyledMovieRow>
+      <StyledMovieRow
+        className={isJawboneOpen ? "movie-row jawboneOpen" : "movie-row"}
+      >
         <div className='row-title'>{movieType}</div>
         <Slider {...settings}>
           {movieData.map(movie => (

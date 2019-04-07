@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { getCast, getDetails } from "../helper";
+import { getDetails } from "../helper";
 //components
 import Header from "./Header";
 import HeroImage from "./HeroImage";

@@ -7,6 +7,11 @@ const StyledMovieDisplay = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  transition: transform 500ms;
+
+  .jawboneOpen ~ .movie-row {
+    transform: translate3d(0, 30vh, 0);
+  }
 `;
 
 export default class MovieDisplay extends Component {

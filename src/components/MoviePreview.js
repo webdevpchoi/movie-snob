@@ -12,7 +12,9 @@ import YouTube from "react-youtube";
 
 const transitionStyles = {
   entering: { opacity: 0 },
-  entered: { opacity: 1 }
+  entered: { opacity: 1 },
+  exiting: { opacity: 1 },
+  exited: { opacity: 0 }
 };
 
 const StyledMoviePreview = styled.div`
@@ -103,6 +105,12 @@ const Button = styled.button`
 `;
 
 export default class MoviePreview extends Component {
+  myRef = React.createRef();
+
+  componentDidMount() {
+    const jawboneHeight = this.myRef.current.offsetHeight;
+    console.log(jawboneHeight);
+  }
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
@@ -123,7 +131,8 @@ export default class MoviePreview extends Component {
       backdrop,
       runtime,
       cast,
-      videoKey
+      videoKey,
+      isJawboneOpen
     } = this.props.details;
 
     const opts = {
@@ -189,10 +198,11 @@ export default class MoviePreview extends Component {
             img={
               backdrop ? `https://image.tmdb.org/t/p/w1280${backdrop}` : null
             }
-            className={state}
             style={{
               ...transitionStyles[state]
             }}
+            className='jawbone'
+            ref={this.myRef}
           >
             <div className='overlay' />
             <div className='content'>
