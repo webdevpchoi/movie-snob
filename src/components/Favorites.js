@@ -22,7 +22,6 @@ const StyledFavorites = styled.div`
 `;
 
 export default function Favorites({ movies }) {
-  console.log(movies);
   const settings = {
     dots: false,
     infinite: false,
@@ -55,6 +54,7 @@ export default function Favorites({ movies }) {
       }
     ]
   };
+  console.log(movies);
   return (
     <StyledFavorites>
       <div className='row-title'>My Favorites</div>

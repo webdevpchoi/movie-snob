@@ -3,6 +3,8 @@ import styled from "styled-components/macro";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Transition } from "react-transition-group";
+import { ReactComponent as PrevArrow } from "../icons/prev-arrow.svg";
+import { ReactComponent as NextArrow } from "../icons/next-arrow.svg";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
@@ -111,6 +113,7 @@ export default class MoviePreview extends Component {
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
+    console.log(movie);
     this.props.addFavorite(movie);
   };
 
@@ -146,6 +149,8 @@ export default class MoviePreview extends Component {
       slidesToShow: 6,
       slidesToScroll: 6,
       initialSlide: 0,
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />,
       className: "cast-row",
       responsive: [
         {
