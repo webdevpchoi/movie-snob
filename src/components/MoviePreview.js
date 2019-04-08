@@ -20,9 +20,11 @@ const transitionStyles = {
 const StyledMoviePreview = styled.div`
   background: url(${props => props.img}) no-repeat 100% / cover;
   padding: 25px;
-  position: relative;
+  position: absolute;
   transition: all 500ms;
   opacity: 0;
+  top: 100%;
+  max-height: 938px;
 
   .movie-details > span {
     margin: 0 10px;
@@ -34,6 +36,7 @@ const StyledMoviePreview = styled.div`
     width: 100%;
     top: 0;
     left: 0;
+    background: rgba(0, 0, 0, 0.7);
   }
   .content {
     display: grid;
@@ -105,12 +108,6 @@ const Button = styled.button`
 `;
 
 export default class MoviePreview extends Component {
-  myRef = React.createRef();
-
-  componentDidMount() {
-    const jawboneHeight = this.myRef.current.offsetHeight;
-    console.log(jawboneHeight);
-  }
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
@@ -131,8 +128,7 @@ export default class MoviePreview extends Component {
       backdrop,
       runtime,
       cast,
-      videoKey,
-      isJawboneOpen
+      videoKey
     } = this.props.details;
 
     const opts = {
@@ -192,7 +188,7 @@ export default class MoviePreview extends Component {
     );
 
     return (
-      <Transition in={this.props.animate} timeout={500}>
+      <Transition in={this.props.animate} timeout={500} exit={false}>
         {state => (
           <StyledMoviePreview
             img={
@@ -202,7 +198,7 @@ export default class MoviePreview extends Component {
               ...transitionStyles[state]
             }}
             className='jawbone'
-            ref={this.myRef}
+            ref={this.jawboneRef}
           >
             <div className='overlay' />
             <div className='content'>

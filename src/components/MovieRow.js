@@ -16,6 +16,8 @@ const StyledMovieRow = styled.div`
   margin: 15px 0;
   display: flex;
   flex-direction: column;
+  position: relative;
+  transition: transform 700ms;
 
   > div:first-child {
     padding: 15px;
