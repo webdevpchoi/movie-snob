@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
 import { ReactComponent as PrevArrow } from "../icons/prev-arrow.svg";
 import { ReactComponent as NextArrow } from "../icons/next-arrow.svg";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as AddIcon } from "../icons/plus-icon.svg";
+import { ReactComponent as RightArrow } from "../icons/right-arrow.svg";
 import Slider from "react-slick";
 import Cast from "./Cast";
 import YouTube from "react-youtube";
@@ -131,6 +133,7 @@ export default class MoviePreview extends Component {
       backdrop,
       runtime,
       cast,
+      id,
       videoKey
     } = this.props.details;
 
@@ -185,6 +188,19 @@ export default class MoviePreview extends Component {
       </Button>
     );
 
+    const MoreDetails = (
+      <Link
+        to={{
+          pathname: id
+        }}
+      >
+        <Button onClick={this.addFavorite}>
+          <span>See Details</span>
+          <RightArrow />
+        </Button>
+      </Link>
+    );
+
     const RemoveButton = (
       <Button onClick={this.removeFavorite}>
         {this.props.movieType === "favorites" ? <CloseIcon /> : null}
@@ -219,6 +235,7 @@ export default class MoviePreview extends Component {
                 <p>{desc}</p>
                 <div className='movie-buttons'>
                   {AddButton}
+                  {MoreDetails}
                   {this.props.movieType === "favorites" ? RemoveButton : null}
                 </div>
               </div>

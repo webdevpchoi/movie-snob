@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./index.css";
 
 import Home from "./components/Home";
+import MovieDetails from "./components/MovieDetails";
 import NotFound from "./components/NotFound";
 import { createGlobalStyle } from "styled-components";
 
@@ -28,6 +29,7 @@ class App extends React.Component {
         <GlobalStyle />
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path='/:movieId' component={MovieDetails} />
           <Route component={NotFound} />
         </Switch>
       </React.Fragment>
