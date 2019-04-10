@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { getDetails } from "../helper";
+import { getDetails, getMovie } from "../helper";
 //components
 import Header from "./Header";
 import HeroImage from "./HeroImage";
@@ -64,16 +64,19 @@ class Home extends Component {
     this.setState({ randomMovie });
   };
   //event handler for search functionality
-  changeHandler = async e => {
+  changeHandler = e => {
     const searchTerm = e.currentTarget.value;
-    const API_KEY = process.env.REACT_APP_API_KEY;
-    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${searchTerm}&include_adult=false`;
-    const searchResults = await fetch(searchUrl).then(res => res.json());
     if (searchTerm) {
-      this.setState({ searchResults, searchTerm });
+      this.setState({ searchTerm });
     } else {
-      this.setState({ searchResults: null, searchTerm: null });
+      this.setState({ searchTerm: null });
     }
+  };
+  //submit handler for search functionality
+  submitHandler = e => {
+    e.preventDefault();
+    const searchPromise = getMovie(this.state.searchTerm);
+    searchPromise.then(searchResults => this.setState({ searchResults }));
   };
 
   render() {
@@ -81,8 +84,8 @@ class Home extends Component {
     return (
       <div className='App'>
         <Header
-          searchMovie={this.searchMovie}
           changeHandler={this.changeHandler}
+          submitHandler={this.submitHandler}
         />
         {this.state.randomMovie ? (
           <HeroImage randomMovie={randomMovie} />
