@@ -15,7 +15,7 @@ export default function MovieSearch({ movies, searchTerm }) {
     <SearchResults>
       <h3>Search results for {searchTerm}</h3>
       {movies
-        ? movies.results.map(movie => <MovieThumb poster={movie.poster_path} />)
+        ? movies.map(movie => <MovieThumb poster={movie.poster_path} />)
         : null}
     </SearchResults>
   );

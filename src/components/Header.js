@@ -56,7 +56,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ searchMovie, changeHandler }) => {
+const Header = ({ changeHandler, submitHandler }) => {
   return (
     <StyledHeader>
       <Link to='/'>
@@ -66,7 +66,7 @@ const Header = ({ searchMovie, changeHandler }) => {
         </div>
       </Link>
       <div className='spacer' />
-      <SearchForm searchMovie={searchMovie} changeHandler={changeHandler} />
+      <SearchForm changeHandler={changeHandler} submitHandler={submitHandler} />
     </StyledHeader>
   );
 };

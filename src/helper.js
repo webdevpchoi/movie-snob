@@ -38,3 +38,15 @@ export const getVideo = async movieId => {
     console.log(err);
   }
 };
+
+export const getMovie = async movie => {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${movie}&include_adult=false`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  } catch (err) {
+    console.log(`Couldn't fetch the endpoint!`);
+    console.log(err);
+  }
+};
