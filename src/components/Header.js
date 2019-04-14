@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../icons/film.svg";
 import SearchForm from "./SearchForm";
 
@@ -58,10 +59,12 @@ const StyledHeader = styled.div`
 const Header = ({ searchMovie, changeHandler }) => {
   return (
     <StyledHeader>
-      <div className='logo-container'>
-        <h1>MovieSnob</h1>
-        <Logo />
-      </div>
+      <Link to='/'>
+        <div className='logo-container'>
+          <h1>MovieSnob</h1>
+          <Logo />
+        </div>
+      </Link>
       <div className='spacer' />
       <SearchForm searchMovie={searchMovie} changeHandler={changeHandler} />
     </StyledHeader>

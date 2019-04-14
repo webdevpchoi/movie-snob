@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Playfair Display';
   background: ${props => props.theme.mainColor};
  }
+ a {
+  text-decoration: none;
+  color: inherit;
+ }
 `;
 
 class App extends React.Component {
