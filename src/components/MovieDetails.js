@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Header from "./Header";
+import { Chart } from "react-google-charts";
 
 const StyledMovieDetails = styled.div`
   padding: calc(82px + 10%) 7% 0 160px;
@@ -74,7 +75,30 @@ export default function MovieDetails() {
             fugiat quibusdam, aliquid rem optio officia nulla molestias culpa!
             Quidem, in laboriosam.
           </p>
-          <div className='pie-chart'>Piechart here</div>
+          <div className='pie-chart'>
+            <Chart
+              width={"500px"}
+              height={"300px"}
+              chartType='Bar'
+              loader={<div>Loading Chart</div>}
+              data={[
+                ["Year", "Sales", "Expenses", "Profit"],
+                ["2014", 1000, 400, 200],
+                ["2015", 1170, 460, 250],
+                ["2016", 660, 1120, 300],
+                ["2017", 1030, 540, 350]
+              ]}
+              options={{
+                // Material design options
+                chart: {
+                  title: "Some Movie Revenue",
+                  subtitle: "Budget vs Profit"
+                }
+              }}
+              // For tests
+              rootProps={{ "data-testid": "2" }}
+            />
+          </div>
           <ul className='genres'>
             <li>Drama</li>
             <li>Science Fiction</li>
