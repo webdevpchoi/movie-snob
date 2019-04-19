@@ -53,7 +53,12 @@ const StyledMovieDetails = styled.div`
   }
 `;
 
-export default function MovieDetails() {
+export default function MovieDetails({
+  location: {
+    state: { title, desc, budget, revenue }
+  }
+}) {
+  console.log(budget, revenue);
   return (
     <StyledMovieDetails>
       <Header />
@@ -63,18 +68,13 @@ export default function MovieDetails() {
             src='https://images.pexels.com/photos/37540/food-popcorn-snack-movie-37540.jpeg?cs=srgb&dl=close-up-food-movie-37540.jpg&fm=jpg'
             alt=''
           />
-          <h1>Aquaman</h1>
+          <h1>{title}</h1>
           <a href='#'>www.Aquaman.com</a>
           <div>
             <span>Release: January 2, 2019</span>
             <span>Runtime: 129 mins</span>
           </div>
-          <p>
-            Overview: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Repellat, ipsa, qui aliquam a autem eligendi maiores itaque minima
-            fugiat quibusdam, aliquid rem optio officia nulla molestias culpa!
-            Quidem, in laboriosam.
-          </p>
+          <p>Overview: {desc}</p>
           <div className='pie-chart'>
             <Chart
               width={"500px"}
@@ -82,16 +82,13 @@ export default function MovieDetails() {
               chartType='Bar'
               loader={<div>Loading Chart</div>}
               data={[
-                ["Year", "Sales", "Expenses", "Profit"],
-                ["2014", 1000, 400, 200],
-                ["2015", 1170, 460, 250],
-                ["2016", 660, 1120, 300],
-                ["2017", 1030, 540, 350]
+                ["Year", "Budget", "Box Office Sales"],
+                ["2014", budget, revenue]
               ]}
               options={{
                 // Material design options
                 chart: {
-                  title: "Some Movie Revenue",
+                  title: title,
                   subtitle: "Budget vs Profit"
                 }
               }}

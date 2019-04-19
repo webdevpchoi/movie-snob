@@ -134,6 +134,8 @@ export default class MoviePreview extends Component {
       runtime,
       cast,
       id,
+      revenue,
+      budget,
       videoKey
     } = this.props.details;
 
@@ -191,7 +193,8 @@ export default class MoviePreview extends Component {
     const MoreDetails = (
       <Link
         to={{
-          pathname: id
+          pathname: id,
+          state: this.props.details
         }}
       >
         <Button onClick={this.addFavorite}>

@@ -75,7 +75,9 @@ export default class MovieRow extends Component {
         release_date: releaseDate,
         popularity,
         backdrop_path: backdrop,
-        runtime
+        runtime,
+        revenue,
+        budget
       } = details;
 
       this.setState({
@@ -87,6 +89,8 @@ export default class MovieRow extends Component {
         popularity,
         backdrop,
         runtime,
+        revenue,
+        budget,
         showPreview: true,
         isJawboneOpen: true
       });
