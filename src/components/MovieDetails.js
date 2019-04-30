@@ -5,21 +5,27 @@ import { Chart } from "react-google-charts";
 
 const StyledMovieDetails = styled.div`
   padding: calc(82px + 10%) 7% 0 160px;
-  position: relative;
-  .movie-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .movie-details {
     background: #181f36;
+    padding-bottom: 15px;
+  }
+  .movie-info {
     min-height: 800px;
     padding: 15px 15px 15px 20%;
     text-align: center;
     color: #fff;
+    position: relative;
 
-    div:first-of-type {
+    /* div:first-of-type {
       margin: 15px 0;
-    }
+    } */
     img {
       position: absolute;
-      top: 250px;
-      left: 40px;
+      top: 60px;
+      left: -145px;
       width: 300px;
     }
     h1 {
@@ -37,64 +43,70 @@ const StyledMovieDetails = styled.div`
     }
     .pie-chart {
       background: ${props => props.theme.mainColor};
+      height: 500px;
     }
-    .genres {
-      display: flex;
-      justify-content: space-around;
-      list-style-type: none;
-
-      li {
-        padding: 10px 15px;
-        border-radius: 5px;
-        background: #1f2844;
-        font-style: italic;
-      }
+    .pie-chart > div {
+      background: #fff;
+      padding: 15px;
+    }
+  }
+  .genres {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    left: 0;
+    right: 0;
+    bottom: 15px;
+    li {
+      padding: 10px 15px;
+      border-radius: 5px;
+      background: #1f2844;
+      font-style: italic;
+      color: ${props => props.theme.accentColor};
     }
   }
 `;
 
 export default function MovieDetails({
   location: {
-    state: { title, desc, budget, revenue }
+    state: { title, desc, budget, revenue, posterPath }
   }
 }) {
-  console.log(budget, revenue);
   return (
-    <StyledMovieDetails>
+    <div>
       <Header />
-      <div className='movie-details'>
-        <div className='movie-info'>
-          <img
-            src='https://images.pexels.com/photos/37540/food-popcorn-snack-movie-37540.jpeg?cs=srgb&dl=close-up-food-movie-37540.jpg&fm=jpg'
-            alt=''
-          />
-          <h1>{title}</h1>
-          <a href='#'>www.Aquaman.com</a>
-          <div>
-            <span>Release: January 2, 2019</span>
-            <span>Runtime: 129 mins</span>
-          </div>
-          <p>Overview: {desc}</p>
-          <div className='pie-chart'>
-            <Chart
-              width={"500px"}
-              height={"300px"}
-              chartType='Bar'
-              loader={<div>Loading Chart</div>}
-              data={[
-                ["Year", "Budget", "Box Office Sales"],
-                ["2014", budget, revenue]
-              ]}
-              options={{
-                // Material design options
-                chart: {
-                  title: title,
-                  subtitle: "Budget vs Profit"
-                }
-              }}
-              // For tests
-              rootProps={{ "data-testid": "2" }}
-            />
+      <StyledMovieDetails>
+        <div className='movie-details'>
+          <div className='movie-info'>
+            <img src={`https://image.tmdb.org/t/p/w300${posterPath}`} alt='' />
+            <h1>{title}</h1>
+            <a href='#'>www.Aquaman.com</a>
+            <div>
+              <span>Release: January 2, 2019</span>
+              <span>Runtime: 129 mins</span>
+            </div>
+            <p>Overview: {desc}</p>
+            <div className='pie-chart'>
+              <Chart
+                width={"100%"}
+                height={"100%"}
+                chartType='Bar'
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ["Year", "Budget", "Box Office Sales"],
+                  ["2014", budget, revenue]
+                ]}
+                options={{
+                  // Material design options
+                  chart: {
+                    title: title,
+                    subtitle: "Budget vs Profit"
+                  }
+                }}
+                // For tests
+                rootProps={{ "data-testid": "2" }}
+              />
+            </div>
           </div>
           <ul className='genres'>
             <li>Drama</li>
@@ -103,7 +115,7 @@ export default function MovieDetails({
             <li>Suspense</li>
           </ul>
         </div>
-      </div>
-    </StyledMovieDetails>
+      </StyledMovieDetails>
+    </div>
   );
 }

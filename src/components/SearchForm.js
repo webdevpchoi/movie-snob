@@ -18,7 +18,6 @@ const StyledForm = styled.form`
       border: none;
       box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 0.08);
       transition: width 200ms, background 200ms;
-      background: rgba(252, 213, 129, 1);
       color: transparent;
     }
     input::placeholder {
