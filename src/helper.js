@@ -50,3 +50,24 @@ export const getMovie = async movie => {
     console.log(err);
   }
 };
+
+export const formatDate = date => {
+  const monthArr = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  const dateArr = date.split("-");
+  const monthNum = dateArr[1].split("")[1];
+  const month = monthArr[monthNum - 1];
+  return `${month} ${dateArr[2]}, ${dateArr[0]}`;
+};

@@ -48,6 +48,7 @@ const StyledMovieRow = styled.div`
 `;
 
 export default class MovieRow extends Component {
+  //state of each movie preview that appears when you click on a thumbnail
   state = {
     showPreview: false,
     title: "",
@@ -59,7 +60,8 @@ export default class MovieRow extends Component {
     cast: [],
     videoKey: "",
     animate: false,
-    jawboneOpen: false
+    jawboneOpen: false,
+    isFavorited: false
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state

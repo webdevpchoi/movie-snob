@@ -9,6 +9,7 @@ const StyledForm = styled.form`
   align-items: center;
   label {
     position: relative;
+    cursor: pointer;
     input {
       width: 40px;
       height: 33px;

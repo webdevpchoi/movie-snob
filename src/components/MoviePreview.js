@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
+import { formatDate } from "../helper";
 import { ReactComponent as PrevArrow } from "../icons/prev-arrow.svg";
 import { ReactComponent as NextArrow } from "../icons/next-arrow.svg";
 import { ReactComponent as ExitIcon } from "../icons/exit.svg";
@@ -32,7 +33,8 @@ const StyledMoviePreview = styled.div`
 
   .movie-details > span {
     margin: 0 10px;
-    color: #fff;
+    font-style: italic;
+    color: ${props => props.theme.accentColor};
   }
   .overlay {
     position: absolute;
@@ -73,6 +75,32 @@ const StyledMoviePreview = styled.div`
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    > button:active {
+      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+    button {
+      cursor: pointer;
+      transition: background 250ms;
+    }
+    .add {
+      background: #2f6832;
+      :hover {
+        background: #1e401f;
+      }
+    }
+    .details {
+      background: #a18a57;
+      :hover {
+        background: #665635;
+      }
+    }
+    .disabled {
+      opacity: 0.58;
+      cursor: default;
+      background: #535353;
+    }
   }
   .exit-icon {
     height: 25px;
@@ -93,13 +121,15 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   color: #fff;
-  border: 2px solid #fff;
+  border: none;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
-  padding: 8px;
-  background: transparent;
+  padding: 12px;
   margin: 5px;
   text-align: center;
   vertical-align: center;
+  font: 1rem ${props => props.theme.headerFont};
   > span {
     margin: 0 10px;
   }
@@ -136,7 +166,8 @@ export default class MoviePreview extends Component {
       id,
       revenue,
       budget,
-      videoKey
+      videoKey,
+      isFavorited
     } = this.props.details;
 
     const opts = {
@@ -184,9 +215,13 @@ export default class MoviePreview extends Component {
     };
 
     const AddButton = (
-      <Button onClick={this.addFavorite}>
+      <Button
+        onClick={this.addFavorite}
+        className={isFavorited ? "disabled" : "add"}
+        disabled={isFavorited}
+      >
         <AddIcon />
-        <span>Add to Favorites</span>
+        <span>{isFavorited ? "Added!" : "Add to Favorites"}</span>
       </Button>
     );
 
@@ -197,7 +232,7 @@ export default class MoviePreview extends Component {
           state: this.props.details
         }}
       >
-        <Button onClick={this.addFavorite}>
+        <Button onClick={this.addFavorite} className='details'>
           <span>See Details</span>
           <RightArrow />
         </Button>
@@ -205,7 +240,7 @@ export default class MoviePreview extends Component {
     );
 
     const RemoveButton = (
-      <Button onClick={this.removeFavorite}>
+      <Button className='remove' onClick={this.removeFavorite}>
         {this.props.movieType === "favorites" ? <CloseIcon /> : null}
         <span>Remove</span>
       </Button>
@@ -232,9 +267,10 @@ export default class MoviePreview extends Component {
               />
               <div className='movie-details'>
                 <h1>{title}</h1>
-                <span>{releaseDate}</span>
-                <span>{popularity},</span>
-                <span>{runtime} minutes</span>
+                <span>Released:</span>
+                {formatDate(releaseDate)}
+                <span>Runtime:</span>
+                {runtime} minutes
                 <p>{desc}</p>
                 <div className='movie-buttons'>
                   {AddButton}

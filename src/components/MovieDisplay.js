@@ -19,11 +19,21 @@ export default class MovieDisplay extends Component {
   };
 
   addFavorite = currentMovie => {
-    //get current movie data, and store it into an array
-    //push that new array into state
-    this.setState(state => {
-      return state.favorites.push(currentMovie);
-    });
+    //if favorite exists, prevent it from adding a duplicate
+    const favExists = this.state.favorites.some(
+      movie => movie.id === currentMovie.id
+    );
+    if (favExists) {
+      return;
+    } else {
+      //if it doesn't exist, add it
+      //get current movie data, and store it into an array
+      //push that new array into state
+      this.setState(state => {
+        currentMovie.isFavorited = true;
+        return state.favorites.push(currentMovie);
+      });
+    }
   };
 
   removeFavorite = id => {

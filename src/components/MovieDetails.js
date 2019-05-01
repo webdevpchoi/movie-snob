@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Header from "./Header";
+import { getYear } from "../helper.js";
 import { Chart } from "react-google-charts";
 
 const StyledMovieDetails = styled.div`
@@ -14,7 +15,7 @@ const StyledMovieDetails = styled.div`
   }
   .movie-info {
     min-height: 800px;
-    padding: 15px 15px 15px 20%;
+    padding: 15px 45px 15px 20%;
     text-align: center;
     color: #fff;
     position: relative;
@@ -40,6 +41,7 @@ const StyledMovieDetails = styled.div`
     }
     p {
       max-width: 700px;
+      margin: 5rem 15px;
     }
     .pie-chart {
       background: ${props => props.theme.mainColor};
@@ -69,7 +71,7 @@ const StyledMovieDetails = styled.div`
 
 export default function MovieDetails({
   location: {
-    state: { title, desc, budget, revenue, posterPath }
+    state: { title, desc, budget, revenue, posterPath, releaseDate }
   }
 }) {
   return (
@@ -85,22 +87,21 @@ export default function MovieDetails({
               <span>Release: January 2, 2019</span>
               <span>Runtime: 129 mins</span>
             </div>
-            <p>Overview: {desc}</p>
+            <p>{desc}</p>
             <div className='pie-chart'>
               <Chart
-                width={"100%"}
                 height={"100%"}
                 chartType='Bar'
                 loader={<div>Loading Chart</div>}
                 data={[
                   ["Year", "Budget", "Box Office Sales"],
-                  ["2014", budget, revenue]
+                  [releaseDate.split("-")[0], budget, revenue]
                 ]}
                 options={{
                   // Material design options
                   chart: {
                     title: title,
-                    subtitle: "Budget vs Profit"
+                    subtitle: "Budget vs Box Office Sales"
                   }
                 }}
                 // For tests
