@@ -20,17 +20,18 @@ export default class MovieDisplay extends Component {
 
   addFavorite = currentMovie => {
     //if favorite exists, prevent it from adding a duplicate
+    //technically, you don't need to check for this, since the add button is disabled once it's in the favorites array...but it's always good to check!
     const favExists = this.state.favorites.some(
       movie => movie.id === currentMovie.id
     );
     if (favExists) {
+      alert("Movie already exists in favorites!");
       return;
     } else {
       //if it doesn't exist, add it
       //get current movie data, and store it into an array
       //push that new array into state
       this.setState(state => {
-        currentMovie.isFavorited = true;
         return state.favorites.push(currentMovie);
       });
     }
@@ -44,7 +45,7 @@ export default class MovieDisplay extends Component {
   };
 
   render() {
-    const { movies } = this.props;
+    const { movies, disableAddButton } = this.props;
     const displayFavorites = (
       <MovieRow
         movieData={this.state.favorites}
@@ -62,6 +63,7 @@ export default class MovieDisplay extends Component {
           movieType='trending'
           addFavorite={this.addFavorite}
           removeFavorite={this.removeFavorite}
+          disableAddButton={disableAddButton}
         />
         <MovieRow
           movieData={movies.topRated.results}

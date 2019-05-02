@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { getDetails, getMovie } from "../helper";
+import { getMovie } from "../helper";
 //components
 import Header from "./Header";
 import HeroImage from "./HeroImage";
@@ -46,6 +46,10 @@ class Home extends Component {
     const movies = moviePromises.then(movieArr => {
       const dataObj = {};
       for (const [movie, movieData] of movieArr) {
+        //add disableButton property to every movie object
+        for (const eachMovie of movieData.results) {
+          eachMovie.disableAddButton = "false";
+        }
         dataObj[movie] = movieData;
       }
       this.setRandomMovie(dataObj.trending.results);
@@ -55,8 +59,6 @@ class Home extends Component {
     movies.then(movieObj => {
       this.setState({ movies: movieObj, loading: false });
     });
-
-    getDetails(297802);
   };
   //get a random movie from trending and place it in HeroImage
   setRandomMovie = movieArr => {
@@ -78,6 +80,18 @@ class Home extends Component {
     const searchPromise = getMovie(this.state.searchTerm);
     searchPromise.then(searchResults => this.setState({ searchResults }));
   };
+  //add a disable button property to the movie object
+  disableAddButton = (movieId, movieType) => {
+    const movieRow = this.state.movies[movieType].results;
+    for (const movie of movieRow) {
+      if (movieId === movie.id) {
+        movie.disableAddButton = true;
+        return;
+      } else {
+        alert("Movie not found!");
+      }
+    }
+  };
 
   render() {
     const { movies, searchResults, searchTerm, randomMovie } = this.state;
@@ -92,7 +106,10 @@ class Home extends Component {
         ) : null}
         {this.state.loading ? <Loader /> : null}
         {this.state.movies && !this.state.searchResults ? (
-          <MovieDisplay movies={movies} />
+          <MovieDisplay
+            movies={movies}
+            disableAddButton={this.disableAddButton}
+          />
         ) : (
           <MovieSearch movies={searchResults} searchTerm={searchTerm} />
         )}

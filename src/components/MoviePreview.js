@@ -90,6 +90,9 @@ const StyledMoviePreview = styled.div`
         background: #1e401f;
       }
     }
+    .remove {
+      background: #860000;
+    }
     .details {
       background: #a18a57;
       :hover {
@@ -145,10 +148,11 @@ export default class MoviePreview extends Component {
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
-    console.log(movie);
+    const { id } = this.props.details;
+    const { movieType } = this.props;
     this.props.addFavorite(movie);
+    this.props.disableAddButton(id, movieType);
   };
-
   removeFavorite = () => {
     const { id } = this.props.details;
     this.props.removeFavorite(id);
@@ -167,7 +171,7 @@ export default class MoviePreview extends Component {
       revenue,
       budget,
       videoKey,
-      isFavorited
+      disableAddButton
     } = this.props.details;
 
     const opts = {
@@ -217,11 +221,11 @@ export default class MoviePreview extends Component {
     const AddButton = (
       <Button
         onClick={this.addFavorite}
-        className={isFavorited ? "disabled" : "add"}
-        disabled={isFavorited}
+        className={!disableAddButton ? "disabled" : "add"}
+        disabled={!disableAddButton}
       >
         <AddIcon />
-        <span>{isFavorited ? "Added!" : "Add to Favorites"}</span>
+        <span>{!disableAddButton ? "Added!" : "Add to Favorites"}</span>
       </Button>
     );
 

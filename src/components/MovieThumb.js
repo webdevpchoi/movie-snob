@@ -20,7 +20,7 @@ class MovieThumb extends Component {
   //while this method seems redundant because we are passing the function down through props,
   // it is to prevent from using an inline arrow function in the render method
   getMovieInfo = () => {
-    this.props.clickHandler(this.props.id);
+    this.props.clickHandler(this.props.id, this.props.disableAddButton);
   };
 
   render() {

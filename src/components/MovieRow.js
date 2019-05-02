@@ -61,11 +61,11 @@ export default class MovieRow extends Component {
     videoKey: "",
     animate: false,
     jawboneOpen: false,
-    isFavorited: false
+    disableAddButton: false
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
-  clickHandler = async id => {
+  clickHandler = async (id, disableAddButton) => {
     getCast(id).then(cast => this.setState({ cast }));
     getVideo(id).then(video => this.setState({ videoKey: video.key }));
     getDetails(id).then(details => {
@@ -145,13 +145,14 @@ export default class MovieRow extends Component {
         }
       ]
     };
-    const { movieType, movieData } = this.props;
+    const { movieType, movieData, disableAddButton } = this.props;
     const { isJawboneOpen } = this.state;
     const moviePreview = (
       <MoviePreview
         details={this.state}
         addFavorite={this.props.addFavorite}
         removeFavorite={this.props.removeFavorite}
+        disableAddButton={disableAddButton}
         movieType={movieType}
         exitPreview={this.exitPreview}
         animate={this.state.animate}
@@ -167,13 +168,13 @@ export default class MovieRow extends Component {
             <MovieThumb
               key={movie.id}
               id={movie.id}
+              disableAddButton={movie.disableAddButton}
               poster={movie.poster_path || movie.posterPath}
               clickHandler={this.clickHandler}
             />
           ))}
         </Slider>
         {this.state.showPreview ? moviePreview : null}
-        {/* {moviePreview} */}
       </StyledMovieRow>
     );
   }
