@@ -9,9 +9,6 @@ const StyledThumbnail = styled.div`
     transform: scale(1.1);
     z-index: 10;
   }
-  > .disable-link {
-    pointer-events: none;
-  }
   img {
     width: 100%;
   }
