@@ -9,6 +9,9 @@ const StyledThumbnail = styled.div`
     transform: scale(1.1);
     z-index: 10;
   }
+  > .disable-link {
+    pointer-events: none;
+  }
   img {
     width: 100%;
   }
@@ -20,7 +23,7 @@ class MovieThumb extends Component {
   //while this method seems redundant because we are passing the function down through props,
   // it is to prevent from using an inline arrow function in the render method
   getMovieInfo = () => {
-    this.props.clickHandler(this.props.id, this.props.disableAddButton);
+    this.props.clickHandler(this.props.id);
   };
 
   render() {

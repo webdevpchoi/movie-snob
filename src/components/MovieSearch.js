@@ -11,11 +11,22 @@ const SearchResults = styled.div`
   }
 `;
 export default function MovieSearch({ movies, searchTerm }) {
+  const clickHandler = () => {
+    alert("you got it!");
+  };
   return (
     <SearchResults>
       <h3>Search results for {searchTerm}</h3>
       {movies
-        ? movies.map(movie => <MovieThumb poster={movie.poster_path} />)
+        ? movies.map(movie => (
+            <MovieThumb
+              poster={movie.poster_path}
+              key={movie.id}
+              id={movie.id}
+              goToDetails={clickHandler}
+              didSearch={Boolean(searchTerm)}
+            />
+          ))
         : null}
     </SearchResults>
   );

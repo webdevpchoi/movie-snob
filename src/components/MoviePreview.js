@@ -148,10 +148,8 @@ export default class MoviePreview extends Component {
   //this function is so that you don't have to use an arrow function in the render method, which will cause a re-render every time the component mounts
   addFavorite = () => {
     const movie = this.props.details;
-    const { id } = this.props.details;
-    const { movieType } = this.props;
+    this.props.disableAddButton();
     this.props.addFavorite(movie);
-    this.props.disableAddButton(id, movieType);
   };
   removeFavorite = () => {
     const { id } = this.props.details;
@@ -163,13 +161,10 @@ export default class MoviePreview extends Component {
       title,
       desc,
       releaseDate,
-      popularity,
       backdrop,
       runtime,
       cast,
       id,
-      revenue,
-      budget,
       videoKey,
       disableAddButton
     } = this.props.details;
@@ -221,11 +216,11 @@ export default class MoviePreview extends Component {
     const AddButton = (
       <Button
         onClick={this.addFavorite}
-        className={!disableAddButton ? "disabled" : "add"}
-        disabled={!disableAddButton}
+        className={disableAddButton ? "disabled" : "add"}
+        disabled={disableAddButton}
       >
         <AddIcon />
-        <span>{!disableAddButton ? "Added!" : "Add to Favorites"}</span>
+        <span>{disableAddButton ? "Added!" : "Add to Favorites"}</span>
       </Button>
     );
 

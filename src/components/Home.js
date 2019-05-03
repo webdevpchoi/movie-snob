@@ -80,18 +80,6 @@ class Home extends Component {
     const searchPromise = getMovie(this.state.searchTerm);
     searchPromise.then(searchResults => this.setState({ searchResults }));
   };
-  //add a disable button property to the movie object
-  disableAddButton = (movieId, movieType) => {
-    const movieRow = this.state.movies[movieType].results;
-    for (const movie of movieRow) {
-      if (movieId === movie.id) {
-        movie.disableAddButton = true;
-        return;
-      } else {
-        alert("Movie not found!");
-      }
-    }
-  };
 
   render() {
     const { movies, searchResults, searchTerm, randomMovie } = this.state;

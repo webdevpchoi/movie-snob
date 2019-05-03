@@ -21,10 +21,10 @@ export default class MovieDisplay extends Component {
   addFavorite = currentMovie => {
     //if favorite exists, prevent it from adding a duplicate
     //technically, you don't need to check for this, since the add button is disabled once it's in the favorites array...but it's always good to check!
-    const favExists = this.state.favorites.some(
+    const doesFavExist = this.state.favorites.some(
       movie => movie.id === currentMovie.id
     );
-    if (favExists) {
+    if (doesFavExist) {
       alert("Movie already exists in favorites!");
       return;
     } else {

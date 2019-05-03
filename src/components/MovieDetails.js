@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
 import Header from "./Header";
-import { getYear } from "../helper.js";
 import { Chart } from "react-google-charts";
 
 const StyledMovieDetails = styled.div`

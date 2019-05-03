@@ -65,7 +65,7 @@ export default class MovieRow extends Component {
   };
 
   //this is the handler that runs when you click on a MovieThumbnail, and takes the endpoint data and sets it into state
-  clickHandler = async (id, disableAddButton) => {
+  clickHandler = async id => {
     getCast(id).then(cast => this.setState({ cast }));
     getVideo(id).then(video => this.setState({ videoKey: video.key }));
     getDetails(id).then(details => {
@@ -94,7 +94,8 @@ export default class MovieRow extends Component {
         revenue,
         budget,
         showPreview: true,
-        isJawboneOpen: true
+        isJawboneOpen: true,
+        disableAddButton: false
       });
       //had to separate this property so that all of the movie info would load before actually fading in the preview component
       setTimeout(() => {
@@ -103,13 +104,17 @@ export default class MovieRow extends Component {
     });
   };
 
+  disableAddButton = () => {
+    this.setState({ disableAddButton: true });
+  };
+
   exitPreview = () => {
     this.setState({ animate: false, isJawboneOpen: false });
     setTimeout(() => {
       this.setState({ showPreview: false });
     }, 700);
   };
-  x;
+
   render() {
     const settings = {
       dots: false,
@@ -145,14 +150,14 @@ export default class MovieRow extends Component {
         }
       ]
     };
-    const { movieType, movieData, disableAddButton } = this.props;
+    const { movieType, movieData } = this.props;
     const { isJawboneOpen } = this.state;
     const moviePreview = (
       <MoviePreview
         details={this.state}
         addFavorite={this.props.addFavorite}
         removeFavorite={this.props.removeFavorite}
-        disableAddButton={disableAddButton}
+        disableAddButton={this.disableAddButton}
         movieType={movieType}
         exitPreview={this.exitPreview}
         animate={this.state.animate}
