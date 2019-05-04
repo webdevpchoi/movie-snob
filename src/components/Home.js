@@ -23,7 +23,10 @@ class Home extends Component {
 
   //on home page load, get several different genres of movies and tvs
   getInitalMovies = () => {
-    const API_KEY = process.env.REACT_APP_API_KEY;
+    const API_KEY = "2a61a6489e9fd7b7761f5c3db7f1f9b8";
+    console.log(`This might be an API key ${API_KEY}`);
+    console.log(process.env.TEST_VAR);
+    // const API_KEY = process.env.REACT_APP_API_KEY;
     //set loading to true
     this.setState({ loading: true });
     //create an object with all movie URLs
