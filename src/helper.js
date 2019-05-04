@@ -1,4 +1,5 @@
-const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = "2a61a6489e9fd7b7761f5c3db7f1f9b8";
 
 export const getCast = async movieId => {
   const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`;
