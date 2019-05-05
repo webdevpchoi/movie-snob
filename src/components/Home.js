@@ -25,6 +25,7 @@ class Home extends Component {
   getInitalMovies = () => {
     const API_KEY = "2a61a6489e9fd7b7761f5c3db7f1f9b8";
     // const API_KEY = process.env.REACT_APP_API_KEY;
+    console.log("new change!");
     console.log(process.env.REACT_APP_TEST_VAR);
     // const API_KEY = process.env.REACT_APP_API_KEY;
     //set loading to true
