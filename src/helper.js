@@ -1,4 +1,5 @@
 const API_KEY = process.env.REACT_APP_API_KEY;
+console.log("updated!");
 console.log(process.env.REACT_APP_API_KEY);
 
 export const getCast = async movieId => {
