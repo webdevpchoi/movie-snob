@@ -27,6 +27,8 @@ class Home extends Component {
     // const API_KEY = process.env.REACT_APP_API_KEY;
     console.log("new change!");
     console.log(process.env.REACT_APP_TEST_VAR);
+    console.log("finally working");
+    console.log(process.env.REACT_APP_TEST_VAR);
     // const API_KEY = process.env.REACT_APP_API_KEY;
     //set loading to true
     this.setState({ loading: true });
