@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
+import { getDetails } from "../helper";
 
 const StyledThumbnail = styled.div`
   margin: 2.5px;
   transition: transform 200ms;
   transform-origin: center;
   :hover {
-    transform: scale(1.1);
-    z-index: 10;
+    box-shadow: 0 0 0 3px ${prop => prop.theme.accentColor};
   }
   img {
     width: 100%;
@@ -17,17 +18,48 @@ const StyledThumbnail = styled.div`
   }
 `;
 class MovieThumb extends Component {
+  state = {
+    details: ""
+  };
   //while this method seems redundant because we are passing the function down through props,
   // it is to prevent from using an inline arrow function in the render method
-  getMovieInfo = () => {
+  getMoviePreview = () => {
     this.props.clickHandler(this.props.id);
+  };
+
+  getMovieDetails = () => {
+    getDetails(this.props.id).then(details => this.setState({ details }));
   };
 
   render() {
     const { poster } = this.props;
-    return (
+    const searchThumbnail = (
+      <Link
+        to={{
+          pathname: `/${this.props.id}`,
+          state: this.state.details
+        }}
+      >
+        <StyledThumbnail>
+          <h1>SEARCH</h1>
+          <div className='movie' onClick={this.getMovieDetails}>
+            <img
+              src={
+                poster
+                  ? `https://image.tmdb.org/t/p/w300${poster}`
+                  : "https://via.placeholder.com/300"
+              }
+              alt='something here'
+            />
+          </div>
+        </StyledThumbnail>
+      </Link>
+    );
+
+    const defaultThumbnail = (
       <StyledThumbnail>
-        <div className='movie' onClick={this.getMovieInfo}>
+        <h1>DEFAULT</h1>
+        <div className='movie' onClick={this.getMoviePreview}>
           <img
             src={
               poster
@@ -39,6 +71,7 @@ class MovieThumb extends Component {
         </div>
       </StyledThumbnail>
     );
+    return this.props.moviesExist ? searchThumbnail : defaultThumbnail;
   }
 }
 

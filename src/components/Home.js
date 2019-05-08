@@ -94,10 +94,7 @@ class Home extends Component {
         ) : null}
         {this.state.loading ? <Loader /> : null}
         {this.state.movies && !this.state.searchResults ? (
-          <MovieDisplay
-            movies={movies}
-            disableAddButton={this.disableAddButton}
-          />
+          <MovieDisplay movies={movies} searchTerm={searchTerm} />
         ) : (
           <MovieSearch movies={searchResults} searchTerm={searchTerm} />
         )}

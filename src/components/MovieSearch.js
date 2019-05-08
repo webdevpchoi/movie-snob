@@ -11,9 +11,6 @@ const SearchResults = styled.div`
   }
 `;
 export default function MovieSearch({ movies, searchTerm }) {
-  const clickHandler = () => {
-    alert("you got it!");
-  };
   return (
     <SearchResults>
       <h3>Search results for {searchTerm}</h3>
@@ -23,8 +20,8 @@ export default function MovieSearch({ movies, searchTerm }) {
               poster={movie.poster_path}
               key={movie.id}
               id={movie.id}
-              goToDetails={clickHandler}
               didSearch={Boolean(searchTerm)}
+              moviesExist={Boolean(movies)}
             />
           ))
         : null}
