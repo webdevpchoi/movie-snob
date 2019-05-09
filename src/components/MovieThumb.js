@@ -19,16 +19,12 @@ const StyledThumbnail = styled.div`
 `;
 class MovieThumb extends Component {
   state = {
-    details: ""
+    test: "hello?"
   };
   //while this method seems redundant because we are passing the function down through props,
   // it is to prevent from using an inline arrow function in the render method
   getMoviePreview = () => {
     this.props.clickHandler(this.props.id);
-  };
-
-  getMovieDetails = () => {
-    getDetails(this.props.id).then(details => this.setState({ details }));
   };
 
   render() {
@@ -37,12 +33,12 @@ class MovieThumb extends Component {
       <Link
         to={{
           pathname: `/${this.props.id}`,
-          state: this.state.details
+          state: this.state
         }}
       >
         <StyledThumbnail>
           <h1>SEARCH</h1>
-          <div className='movie' onClick={this.getMovieDetails}>
+          <div className='movie'>
             <img
               src={
                 poster
