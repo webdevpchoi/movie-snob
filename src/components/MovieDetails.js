@@ -93,8 +93,8 @@ export default function MovieDetails({
                 chartType='Bar'
                 loader={<div>Loading Chart</div>}
                 data={[
-                  ["Year", "Budget", "Box Office Sales"]
-                  // [releaseDate.split("-")[0], budget, revenue]
+                  ["Year", "Budget", "Box Office Sales"],
+                  [releaseDate.split("-")[0], budget, revenue]
                 ]}
                 options={{
                   // Material design options

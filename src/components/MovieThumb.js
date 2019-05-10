@@ -24,7 +24,7 @@ const MovieThumb = props => {
   };
 
   return (
-    <MovieLink enabled={true} to={{ pathname: props.id }}>
+    <MovieLink enabled={false} to={{ pathname: props.id }}>
       <StyledThumbnail>
         <h1>SEARCH</h1>
         <div className='movie' onClick={getMoviePreview}>
