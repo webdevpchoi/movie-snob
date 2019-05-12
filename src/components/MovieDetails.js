@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components/macro";
 import Header from "./Header";
 import { Chart } from "react-google-charts";
+import { getDetails } from "../helper";
 
 const StyledMovieDetails = styled.div`
   padding: calc(82px + 10%) 7% 0 160px;
@@ -68,54 +69,79 @@ const StyledMovieDetails = styled.div`
   }
 `;
 
-export default function MovieDetails({
-  location: {
-    state: { title, desc, budget, revenue, posterPath, releaseDate }
+export default class MovieDetails extends Component {
+  state = {};
+  componentDidMount() {
+    console.log("Hey, this is the movie-details page!");
+    getDetails(this.props.location.state.movieId).then(details => {
+      console.log(details);
+      const {
+        poster_path: posterPath,
+        title,
+        overview: desc,
+        release_date: releaseDate,
+        budget,
+        revenue
+      } = details;
+
+      this.setState({
+        posterPath,
+        title,
+        desc,
+        releaseDate,
+        budget,
+        revenue
+      });
+    });
   }
-}) {
-  return (
-    <div>
-      <Header />
-      <StyledMovieDetails>
-        <div className='movie-details'>
-          <div className='movie-info'>
-            <img src={`https://image.tmdb.org/t/p/w300${posterPath}`} alt='' />
-            <h1>{title}</h1>
-            <a href='#'>www.Aquaman.com</a>
-            <div>
-              <span>Release: January 2, 2019</span>
-              <span>Runtime: 129 mins</span>
-            </div>
-            <p>{desc}</p>
-            <div className='pie-chart'>
-              <Chart
-                height={"100%"}
-                chartType='Bar'
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["Year", "Budget", "Box Office Sales"],
-                  [releaseDate.split("-")[0], budget, revenue]
-                ]}
-                options={{
-                  // Material design options
-                  chart: {
-                    title: title,
-                    subtitle: "Budget vs Box Office Sales"
-                  }
-                }}
-                // For tests
-                rootProps={{ "data-testid": "2" }}
+  render() {
+    return (
+      <div>
+        {/* <Header />
+        <StyledMovieDetails>
+          <div className='movie-details'>
+            <div className='movie-info'>
+              <img
+                src={`https://image.tmdb.org/t/p/w300${posterPath}`}
+                alt=''
               />
+              <h1>{title}</h1>
+              <a href='#'>www.Aquaman.com</a>
+              <div>
+                <span>Release: January 2, 2019</span>
+                <span>Runtime: 129 mins</span>
+              </div>
+              <p>{desc}</p>
+              <div className='pie-chart'>
+                <Chart
+                  height={"100%"}
+                  chartType='Bar'
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ["Year", "Budget", "Box Office Sales"],
+                    [releaseDate.split("-")[0], budget, revenue]
+                  ]}
+                  options={{
+                    // Material design options
+                    chart: {
+                      title: title,
+                      subtitle: "Budget vs Box Office Sales"
+                    }
+                  }}
+                  // For tests
+                  rootProps={{ "data-testid": "2" }}
+                />
+              </div>
             </div>
+            <ul className='genres'>
+              <li>Drama</li>
+              <li>Science Fiction</li>
+              <li>Fantasy</li>
+              <li>Suspense</li>
+            </ul>
           </div>
-          <ul className='genres'>
-            <li>Drama</li>
-            <li>Science Fiction</li>
-            <li>Fantasy</li>
-            <li>Suspense</li>
-          </ul>
-        </div>
-      </StyledMovieDetails>
-    </div>
-  );
+        </StyledMovieDetails> */}
+      </div>
+    );
+  }
 }

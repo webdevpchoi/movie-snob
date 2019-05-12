@@ -228,7 +228,9 @@ export default class MoviePreview extends Component {
       <Link
         to={{
           pathname: id,
-          state: this.props.details
+          state: {
+            movieId: id
+          }
         }}
       >
         <Button onClick={this.addFavorite} className='details'>
