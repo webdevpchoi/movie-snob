@@ -96,7 +96,11 @@ class Home extends Component {
         {this.state.movies && !this.state.searchResults ? (
           <MovieDisplay movies={movies} searchTerm={searchTerm} />
         ) : (
-          <MovieSearch movies={searchResults} searchTerm={searchTerm} />
+          <MovieSearch
+            movies={searchResults}
+            searchTerm={searchTerm}
+            enable={Boolean(searchTerm)}
+          />
         )}
       </div>
     );

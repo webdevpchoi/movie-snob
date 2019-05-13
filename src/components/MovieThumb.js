@@ -16,22 +16,21 @@ const StyledThumbnail = styled.div`
     cursor: pointer;
   }
 `;
-const MovieThumb = props => {
+const MovieThumb = ({ id, poster, enable, clickHandler }) => {
   //while this method seems redundant because we are passing the function down through props,
   // it is to prevent from using an inline arrow function in the render method
   const getMoviePreview = () => {
-    props.clickHandler(props.id);
+    clickHandler(id);
   };
 
   return (
-    <MovieLink enabled={false} to={{ pathname: props.id }}>
+    <MovieLink enable={enable} to={{ pathname: id, state: { movieId: id } }}>
       <StyledThumbnail>
-        <h1>SEARCH</h1>
-        <div className='movie' onClick={getMoviePreview}>
+        <div className='movie' onClick={enable ? null : getMoviePreview}>
           <img
             src={
-              props.poster
-                ? `https://image.tmdb.org/t/p/w300${props.poster}`
+              poster
+                ? `https://image.tmdb.org/t/p/w300${poster}`
                 : "https://via.placeholder.com/300"
             }
             alt='something here'

@@ -10,7 +10,7 @@ const SearchResults = styled.div`
     grid-column: 1 / 6;
   }
 `;
-export default function MovieSearch({ movies, searchTerm }) {
+export default function MovieSearch({ movies, searchTerm, enable }) {
   return (
     <SearchResults>
       <h3>Search results for {searchTerm}</h3>
@@ -22,6 +22,7 @@ export default function MovieSearch({ movies, searchTerm }) {
               id={movie.id}
               didSearch={Boolean(searchTerm)}
               moviesExist={Boolean(movies)}
+              enable={enable}
             />
           ))
         : null}

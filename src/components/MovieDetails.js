@@ -70,9 +70,15 @@ const StyledMovieDetails = styled.div`
 `;
 
 export default class MovieDetails extends Component {
-  state = {};
+  state = {
+    posterPath: "",
+    title: "",
+    desc: "",
+    releaseDate: "",
+    budget: "",
+    revenue: ""
+  };
   componentDidMount() {
-    console.log("Hey, this is the movie-details page!");
     getDetails(this.props.location.state.movieId).then(details => {
       console.log(details);
       const {
@@ -95,9 +101,18 @@ export default class MovieDetails extends Component {
     });
   }
   render() {
+    const {
+      posterPath,
+      title,
+      desc,
+      releaseDate,
+      budget,
+      revenue
+    } = this.state;
+
     return (
       <div>
-        {/* <Header />
+        <Header />
         <StyledMovieDetails>
           <div className='movie-details'>
             <div className='movie-info'>
@@ -140,7 +155,7 @@ export default class MovieDetails extends Component {
               <li>Suspense</li>
             </ul>
           </div>
-        </StyledMovieDetails> */}
+        </StyledMovieDetails>
       </div>
     );
   }
