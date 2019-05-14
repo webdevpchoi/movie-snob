@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import Header from "./Header";
+import Loader from "./Loader";
 import { Chart } from "react-google-charts";
 import { getDetails } from "../helper";
 
@@ -76,8 +77,10 @@ export default class MovieDetails extends Component {
     desc: "",
     releaseDate: "",
     budget: "",
-    revenue: ""
+    revenue: "",
+    loaded: false
   };
+
   componentDidMount() {
     getDetails(this.props.location.state.movieId).then(details => {
       console.log(details);
@@ -96,7 +99,8 @@ export default class MovieDetails extends Component {
         desc,
         releaseDate,
         budget,
-        revenue
+        revenue,
+        loaded: true
       });
     });
   }
@@ -107,10 +111,11 @@ export default class MovieDetails extends Component {
       desc,
       releaseDate,
       budget,
-      revenue
+      revenue,
+      loaded
     } = this.state;
 
-    return (
+    return loaded ? (
       <div>
         <Header />
         <StyledMovieDetails>
@@ -157,6 +162,8 @@ export default class MovieDetails extends Component {
           </div>
         </StyledMovieDetails>
       </div>
+    ) : (
+      <Loader />
     );
   }
 }
