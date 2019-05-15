@@ -102,19 +102,23 @@ export default class MovieDetails extends Component {
           revenue
         } = details;
 
-        this.setState({
-          posterPath,
-          title,
-          desc,
-          releaseDate,
-          budget,
-          revenue,
-          loaded: true
-        });
-
-        sessionStorage.setItem(
-          `${this.props.location.state.movieId}`,
-          JSON.stringify(this.state)
+        this.setState(
+          {
+            posterPath,
+            title,
+            desc,
+            releaseDate,
+            budget,
+            revenue,
+            loaded: true
+          },
+          //store state immediately after setting it
+          () => {
+            sessionStorage.setItem(
+              `${this.props.location.state.movieId}`,
+              JSON.stringify(this.state)
+            );
+          }
         );
       });
     }
