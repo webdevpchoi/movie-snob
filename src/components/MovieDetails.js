@@ -82,28 +82,44 @@ export default class MovieDetails extends Component {
   };
 
   componentDidMount() {
-    getDetails(this.props.location.state.movieId).then(details => {
-      console.log(details);
-      const {
-        poster_path: posterPath,
-        title,
-        overview: desc,
-        release_date: releaseDate,
-        budget,
-        revenue
-      } = details;
+    //check sessionStorage to see if movie already exists
+    if (sessionStorage.hasOwnProperty(`${this.props.location.state.movieId}`)) {
+      console.log("yo this DOES exist!");
+      const cachedMovieDetails = JSON.parse(
+        sessionStorage.getItem(`${this.props.location.state.movieId}`)
+      );
+      this.setState({ ...cachedMovieDetails });
+    } else {
+      console.log("nothing here! I'll add you to sessionStorage m8.");
+      getDetails(this.props.location.state.movieId).then(details => {
+        console.log(details);
+        const {
+          poster_path: posterPath,
+          title,
+          overview: desc,
+          release_date: releaseDate,
+          budget,
+          revenue
+        } = details;
 
-      this.setState({
-        posterPath,
-        title,
-        desc,
-        releaseDate,
-        budget,
-        revenue,
-        loaded: true
+        this.setState({
+          posterPath,
+          title,
+          desc,
+          releaseDate,
+          budget,
+          revenue,
+          loaded: true
+        });
+
+        sessionStorage.setItem(
+          `${this.props.location.state.movieId}`,
+          JSON.stringify(this.state)
+        );
       });
-    });
+    }
   }
+
   render() {
     const {
       posterPath,
